@@ -6,6 +6,11 @@ import exit.Exit;
 
 public class App {
     public static void main(String[] args) throws IOException {
+        Encryption encryption = new Encryption();
+        Decryption decryption = new Decryption();
+        Exit exit = new Exit();
+
+
         Scanner myObj = new Scanner(System.in);
         System.out.println("Choose one of the options (enter the number)");
         System.out.println("[1] Encryption");
@@ -15,13 +20,14 @@ public class App {
         int userChoice = myObj.nextInt();
 
         if (userChoice == 1) {
-            Encryption encryption = new Encryption();
+            encryption.caesarAlgorithemEncrypt();
         }
         else if (userChoice == 2) {
-            Decryption decryption = new Decryption();
+            System.out.println("Soon");
         }
         else if (userChoice == 3) {
-            Exit exit = new Exit();
+            System.out.println("Soon");
+
         }
         else {
             System.out.println("invalid value");

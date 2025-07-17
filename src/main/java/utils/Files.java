@@ -3,12 +3,13 @@ package utils;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Scanner;
+import static java.nio.file.Files.readString;
 
 public class Files {
     private static String filePath;
 
     public Files(String filePath) {
-        this.filePath = filePath;
+        Files.filePath = filePath;
     }
 
     public static String getFilePath() {
@@ -23,8 +24,7 @@ public class Files {
     }
 
     public static String fileReader(String filePath) throws IOException {
-        String content = java.nio.file.Files.readString(Path.of(filePath));
-        return content;
+        return readString(Path.of(filePath));
     }
 
 
