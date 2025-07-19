@@ -10,9 +10,8 @@ public class AlgorithemLogic {
 
     public void caesarAlgorithem(int shiftKey,boolean encrypt) throws IOException {
         StringBuilder result = new StringBuilder();
-        String textBefore = fileReader();
         char shifted;
-        for (char character : textBefore.toCharArray()) {
+        for (char character : fileReader().toCharArray()) {
             if (Character.isLetter(character)) {
                 char base = Character.isUpperCase(character) ? 'A' : 'a';
                 if (encrypt) {

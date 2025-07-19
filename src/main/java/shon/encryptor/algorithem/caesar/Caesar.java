@@ -15,7 +15,6 @@ public class Caesar implements Encryptions {
 
     @Override
     public void encrypt() throws IOException {
-
         int shiftkey = keyGenerator.randomNumber();
         boolean encrypt = true;
         algorithemLogic.caesarAlgorithem(shiftkey,encrypt);

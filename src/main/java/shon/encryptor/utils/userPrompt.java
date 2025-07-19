@@ -3,8 +3,6 @@ package shon.encryptor.utils;
 import java.util.Scanner;
 
 public class userPrompt {
-    private String stringPromptValue;
-    private int menuPromptValue;
 
     private void menuPrint(){
         System.out.println("\nChoose one of the options (enter the number)");
@@ -16,8 +14,7 @@ public class userPrompt {
     public int menuPrompt() {
         Scanner myObj = new Scanner(System.in);
         menuPrint();
-        menuPromptValue = myObj.nextInt();
-        return menuPromptValue;
+        return myObj.nextInt();
     }
 
     public int promptInt() {
@@ -27,8 +24,7 @@ public class userPrompt {
 
     public String promptString() {
         Scanner myObj = new Scanner(System.in);
-        stringPromptValue = myObj.nextLine();
-        return stringPromptValue;
+        return  myObj.nextLine();
     }
 
 
