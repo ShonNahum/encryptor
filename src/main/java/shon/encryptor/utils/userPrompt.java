@@ -2,7 +2,21 @@ package shon.encryptor.utils;
 
 import java.util.Scanner;
 
-public class userPrompt {
+public class UserPrompt {
+    private static UserPrompt instance;
+    private Scanner myObj; // different value for each object,need create object to use.
+
+    private UserPrompt(){ // private constructor to prevent new instance
+        myObj = new Scanner(System.in);
+    }
+
+    public static UserPrompt getInstance() {
+        if (instance == null) {
+            instance = new UserPrompt();
+        }
+        return instance;
+    }
+
 
     private void menuPrint(){
         System.out.println("\nChoose one of the options (enter the number)");
@@ -12,18 +26,16 @@ public class userPrompt {
     }
 
     public int menuPrompt() {
-        Scanner myObj = new Scanner(System.in);
         menuPrint();
         return myObj.nextInt();
     }
 
     public int promptInt() {
-        Scanner myObj = new Scanner(System.in);
         return myObj.nextInt();
     }
 
     public String promptString() {
-        Scanner myObj = new Scanner(System.in);
+        myObj.nextLine();
         return  myObj.nextLine();
     }
 

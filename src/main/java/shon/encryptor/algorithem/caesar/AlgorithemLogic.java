@@ -6,7 +6,16 @@ import static shon.encryptor.utils.FilesHelper.*;
 
 
 public class AlgorithemLogic {
+    private static AlgorithemLogic instance;
 
+    private AlgorithemLogic(){}
+
+    public static AlgorithemLogic getInstance(){
+        if (instance == null) {
+            instance = new AlgorithemLogic();
+        }
+        return instance;
+    }
 
     public void caesarAlgorithem(int shiftKey,boolean encrypt) throws IOException {
         StringBuilder result = new StringBuilder();

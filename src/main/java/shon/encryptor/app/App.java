@@ -1,15 +1,25 @@
 package shon.encryptor.app;
 
 import shon.encryptor.algorithem.caesar.Caesar;
-import shon.encryptor.utils.userPrompt;
+import shon.encryptor.utils.UserPrompt;
 
 import java.io.IOException;
 
 
 public class App {
+    private static App instance;
 
-    public void userChoice() throws IOException {
-        userPrompt userprompt = new userPrompt();
+    private App() {}
+
+    public static App getInstance() {
+        if (instance == null) {
+            instance = new App();
+        }
+        return instance;
+    }
+
+    public void userChoice() throws IOException { // static void because i dont want it as object (no need save the output)
+        UserPrompt userprompt = UserPrompt.getInstance();
         Caesar caesar = new Caesar();
         int prompt = userprompt.menuPrompt();
 

@@ -3,15 +3,15 @@ package shon.encryptor.algorithem.caesar;
 import shon.encryptor.utils.KeyGenerator;
 import shon.encryptor.algorithem.Encryptions;
 import shon.encryptor.app.App;
-import shon.encryptor.utils.userPrompt;
+import shon.encryptor.utils.UserPrompt;
 
 import java.io.IOException;
 
 public class Caesar implements Encryptions {
-    AlgorithemLogic algorithemLogic = new AlgorithemLogic();
-    App app = new App();
-    KeyGenerator keyGenerator = new KeyGenerator();
-    userPrompt userprompt = new userPrompt();
+    AlgorithemLogic algorithemLogic = AlgorithemLogic.getInstance();
+    App app = App.getInstance();
+    KeyGenerator keyGenerator = KeyGenerator.GetInstance();
+    UserPrompt userprompt = UserPrompt.getInstance();
 
     @Override
     public void encrypt() throws IOException {

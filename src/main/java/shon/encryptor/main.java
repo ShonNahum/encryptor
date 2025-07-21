@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class main {
     public static void main(String[] args) throws IOException {
-        App app = new App();
+        App app = App.getInstance();
         app.userChoice();
 
 

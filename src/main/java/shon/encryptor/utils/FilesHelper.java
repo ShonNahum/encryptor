@@ -10,28 +10,25 @@ import static java.nio.file.Files.readString;
 
 public class FilesHelper {
     private static String filePath;
-    private static String fileContext;
+
 
     public FilesHelper(String filePath) {
         FilesHelper.filePath = filePath;
     }
 
     public static String getFilePath() {
-        return userFilePath();
+        return filePath + ".txt";
     }
 
     private static String userFilePath() {
-        userPrompt userpromt = new userPrompt();
+        UserPrompt userpromt = UserPrompt.getInstance();
         System.out.println("Please Enter Your file path");
         filePath = userpromt.promptString();
         return filePath;
     }
 
     public static String fileReader() throws IOException {
-        fileContext = readString(Path.of(userFilePath() + ".txt"));
-        System.out.println(fileContext);
-
-        return fileContext;
+        return readString(Path.of(userFilePath() + ".txt"));
     }
 
     public static void fileWriter(StringBuilder newContext,boolean encrypt) throws IOException {
