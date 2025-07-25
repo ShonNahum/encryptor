@@ -41,15 +41,17 @@ public class Encryptor {
                 case 1:
                     String encrypData = caesar.encrypt(fileReader(filePath));
                     fileWriter(encrypData, Mode.ENCRYPT, filePath);
-
+                    break;
                 case 2:
                     System.out.println("please enter decryption key");
                     String decryptKey = input.stringInput();
                     String decrypData = caesar.decrypt(fileReader(filePath), typeConverts.stringToInt(decryptKey));
                     fileWriter(decrypData, Mode.DECRYPT, filePath);
+                    break;
 
                 default:
                     System.out.println("invalid value, Enter one of the visually choices");
+                    break;
             }
         }
     }

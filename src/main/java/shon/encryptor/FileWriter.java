@@ -18,6 +18,7 @@ public class FileWriter {
 
             }
             Files.writeString(Path.of(newFilePath), data);
+            System.out.println(newFilePath + " Created successfully");
         } catch (IOException e) {
             System.out.println("Error create file with the data" + e);
             return false;
