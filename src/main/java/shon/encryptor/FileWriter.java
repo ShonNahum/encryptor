@@ -6,18 +6,23 @@ import java.nio.file.Path;
 
 public class FileWriter {
 
-    public static void fileWriter(String data,Mode mode,String filepath) throws IOException {
-        String[] fileParts = filepath.split("\\.");
-        String newFilePath;
-        if (mode == Mode.ENCRYPT) {
-            newFilePath = fileParts[0] + "_encrypted" + "." + fileParts[1];
+    public static boolean fileWriter(String data,Mode mode,String filepath) {
+        try {
+            String[] fileParts = filepath.split("\\.");
+            String newFilePath;
+            if (mode == Mode.ENCRYPT) {
+                newFilePath = fileParts[0] + "_encrypted" + "." + fileParts[1];
 
-        }
-        else {
-            newFilePath = fileParts[0] + "_decrypted" + "." + fileParts[1];
+            } else {
+                newFilePath = fileParts[0] + "_decrypted" + "." + fileParts[1];
 
+            }
+            Files.writeString(Path.of(newFilePath), data);
+        } catch (IOException e) {
+            System.out.println("Error create file with the data" + e);
+            return false;
         }
-        Files.writeString(Path.of(newFilePath), data);
-        }
+        return true;
+    }
 
 }

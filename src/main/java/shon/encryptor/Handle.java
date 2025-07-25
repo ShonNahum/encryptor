@@ -1,17 +1,10 @@
 package shon.encryptor;
 
+import static shon.encryptor.FileReader.fileReader;
+
 public class Handle {
     public Handle() {
 
-    }
-
-    public int stringToInt(String stringInput) {
-        try {
-            return Integer.parseInt(stringInput);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input! Please enter a valid number.");
-            return -1;
-        }
     }
 
     public int validatedOption(int option) {
@@ -23,5 +16,18 @@ public class Handle {
             return -1;
         }
     }
+
+    public boolean validateFilePath(String filePath) {
+        try {
+            String[] fileParts = filePath.split("\\.");
+            fileParts[1] = null;
+            return true;
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+            System.out.print("filepath not valid, write the full path");
+            return false;
+            }
+    }
 }
+
 

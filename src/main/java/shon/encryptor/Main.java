@@ -2,8 +2,8 @@ package shon.encryptor;
 
 import java.io.IOException;
 
-public class main {
-    public static void main(String[] args) throws IOException {
+public class Main {
+    public static void main(String[] args) {
         Encryptor encryptor = new Encryptor();
         encryptor.Start();
 
