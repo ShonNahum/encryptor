@@ -1,4 +1,4 @@
-package shon.encryptor;
+package shon.encryptor.interfaces;
 
 public interface Algorithems
 {

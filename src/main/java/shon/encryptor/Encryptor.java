@@ -1,42 +1,43 @@
 package shon.encryptor;
 
-import static shon.encryptor.FileReader.fileReader;
-import static shon.encryptor.FileWriter.fileWriter;
+import shon.encryptor.caesar.Caesar;
+import shon.encryptor.filesHelper.FileValidation;
+import shon.encryptor.inputs.Inputs;
+import shon.encryptor.ModeMenu.ModePrinter;
+import shon.encryptor.ModeMenu.ModeValidator;
 
 public class Encryptor {
 
     TypeConverts typeConverts = new TypeConverts();
-    Handle handle = new Handle();
+    FileValidation fileValidation = new FileValidation();
+    ModeValidator modeValidator = new ModeValidator();
     Inputs input  = Inputs.getInstance();
-    Outputs outputs = Outputs.GetInstance();
-    Caesar caesar = Caesar.getInstance();
+    Caesar caesar = new Caesar();
+    ModePrinter modePrinter = new ModePrinter();
 
 
     public void Start() {
-        outputs.printStartMenu();
+        modePrinter.printModeMenu();
         while(true) {
-            int choiceInput = handle.validatedOption(typeConverts.stringToInt(input.stringInput()));
+            int modeInput = modeValidator.validatedMode(typeConverts.stringToInt(input.stringInput()));
 
-            if (choiceInput == 3){
+            if (modeInput == 3){
                 return;
             }
-            else if (choiceInput != -1) {
-                choiceStartMenu(choiceInput);
+            else if (modeInput != -1) {
+                choiceStartMenu(modeInput);
             }
-            outputs.printStartMenu();
+            modePrinter.printModeMenu();
 
         }
     }
 
-
-
-    private void choiceStartMenu(int choiceInput) {
+    private void choiceStartMenu(int modeInput) {
         System.out.println("please enter filepath");
         String filePath = input.stringInput();
 
-        if(handle.validateFile(filePath)) {
-            caesar.CaesarMenu(choiceInput,filePath);
+        if(fileValidation.validateFile(filePath)) {
+            caesar.CaesarMenu(modeInput,filePath);
         }
     }
-
 }

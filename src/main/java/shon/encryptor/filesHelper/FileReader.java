@@ -1,4 +1,4 @@
-package shon.encryptor;
+package shon.encryptor.filesHelper;
 
 import java.io.IOException;
 import java.nio.file.Path;

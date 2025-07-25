@@ -1,4 +1,4 @@
-package shon.encryptor;
+package shon.encryptor.inputs;
 import java.util.Scanner;
 
 public class Inputs {

@@ -1,29 +1,25 @@
-package shon.encryptor;
+package shon.encryptor.caesar;
 
 
-import static shon.encryptor.FileReader.fileReader;
-import static shon.encryptor.FileWriter.fileWriter;
+import shon.encryptor.generators.KeyGenerator;
+import shon.encryptor.inputs.Inputs;
+import shon.encryptor.TypeConverts;
+import shon.encryptor.enums.Mode;
+import shon.encryptor.interfaces.Algorithems;
 
-public class Caesar implements Algorithems{
-    private static Caesar instance = new Caesar();
+import static shon.encryptor.filesHelper.FileReader.fileReader;
+import static shon.encryptor.filesHelper.FileWriter.fileWriter;
 
-    Generator generator = new Generator();
+public class Caesar implements Algorithems {
+
+    KeyGenerator keyGenerator = new KeyGenerator();
     Inputs input  = Inputs.getInstance();
     TypeConverts typeConverts = new TypeConverts();
 
-
-    private Caesar(
-    ) {}
-
-    public static Caesar getInstance() {
-        return instance;
-    }
-
-
     @Override
     public String encrypt(String data) {
-        int shiftKey = generator.randomKey();
-        return CaesarLogic(data,shiftKey,Mode.ENCRYPT);
+        int shiftKey = keyGenerator.generateKey();
+        return CaesarLogic(data,shiftKey, Mode.ENCRYPT);
     }
 
     @Override

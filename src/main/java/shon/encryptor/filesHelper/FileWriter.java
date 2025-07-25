@@ -1,4 +1,6 @@
-package shon.encryptor;
+package shon.encryptor.filesHelper;
+
+import shon.encryptor.enums.Mode;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -6,7 +8,7 @@ import java.nio.file.Path;
 
 public class FileWriter {
 
-    public static boolean fileWriter(String data,Mode mode,String filepath) {
+    public static boolean fileWriter(String data, Mode mode, String filepath) {
         try {
             String[] fileParts = filepath.split("\\.");
             String newFilePath;
