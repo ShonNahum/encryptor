@@ -1,4 +1,4 @@
-package shon.encryptor.enums;
+package shon.encryptor.ModeMenu.enums;
 
 public enum Mode {
     ENCRYPT,

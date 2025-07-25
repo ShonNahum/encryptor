@@ -1,16 +1,16 @@
-package shon.encryptor.caesar;
+package shon.encryptor.algorithms;
 
 
 import shon.encryptor.generators.KeyGenerator;
 import shon.encryptor.inputs.Inputs;
-import shon.encryptor.TypeConverts;
-import shon.encryptor.enums.Mode;
-import shon.encryptor.interfaces.Algorithems;
+import shon.encryptor.convertions.TypeConverts;
+import shon.encryptor.ModeMenu.enums.Mode;
+import shon.encryptor.algorithms.interfaces.Algorithm;
 
 import static shon.encryptor.filesHelper.FileReader.fileReader;
 import static shon.encryptor.filesHelper.FileWriter.fileWriter;
 
-public class Caesar implements Algorithems {
+public class Caesar implements Algorithm {
 
     KeyGenerator keyGenerator = new KeyGenerator();
     Inputs input  = Inputs.getInstance();

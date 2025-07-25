@@ -1,6 +1,7 @@
 package shon.encryptor;
 
-import shon.encryptor.caesar.Caesar;
+import shon.encryptor.algorithms.Caesar;
+import shon.encryptor.convertions.TypeConverts;
 import shon.encryptor.filesHelper.FileValidation;
 import shon.encryptor.inputs.Inputs;
 import shon.encryptor.ModeMenu.ModePrinter;

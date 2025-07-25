@@ -1,6 +1,6 @@
 package shon.encryptor.filesHelper;
 
-import shon.encryptor.enums.Mode;
+import shon.encryptor.ModeMenu.enums.Mode;
 
 import java.io.IOException;
 import java.nio.file.Files;
