@@ -7,16 +7,16 @@ public class Caesar implements Algorithems{
     @Override
     public String encrypt(String data) {
         int shiftKey = utils.randomKey();
-        return logic(data,shiftKey,Mode.ENCRYPT);
+        return CaesarLogic(data,shiftKey,Mode.ENCRYPT);
     }
 
     @Override
     public String decrypt(String data,int shiftKey) {
-        return logic(data,shiftKey,Mode.DECRYPT);
+        return CaesarLogic(data,shiftKey,Mode.DECRYPT);
 
     }
 
-    private String logic(String data,int shiftKey,Mode mode){
+    private String CaesarLogic(String data,int shiftKey,Mode mode){
         StringBuilder newData = new StringBuilder();
         char shifted;
         if (mode == Mode.DECRYPT) {

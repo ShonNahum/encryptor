@@ -35,20 +35,21 @@ public class Encryptor {
     private void choiceStartMenu(int choice) {
         System.out.println("please enter filepath");
         String filePath = input.stringInput();
+
         if(handle.validateFile(filePath)) {
-            if (choice == 1) {
-                String encrypData = caesar.encrypt(fileReader(filePath));
-                fileWriter(encrypData, Mode.ENCRYPT, filePath);
+            switch(choice) {
+                case 1:
+                    String encrypData = caesar.encrypt(fileReader(filePath));
+                    fileWriter(encrypData, Mode.ENCRYPT, filePath);
 
+                case 2:
+                    System.out.println("please enter decryption key");
+                    String decryptKey = input.stringInput();
+                    String decrypData = caesar.decrypt(fileReader(filePath), typeConverts.stringToInt(decryptKey));
+                    fileWriter(decrypData, Mode.DECRYPT, filePath);
 
-            } else if (choice == 2) {
-                System.out.println("please enter decryption key");
-                String decryptKey = input.stringInput();
-                String decrypData = caesar.decrypt(fileReader(filePath), typeConverts.stringToInt(decryptKey));
-                fileWriter(decrypData, Mode.DECRYPT, filePath);
-
-            } else {
-                System.out.println("invalid value, Enter one of the visually choices");
+                default:
+                    System.out.println("invalid value, Enter one of the visually choices");
             }
         }
     }
