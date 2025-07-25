@@ -9,7 +9,7 @@ public class Encryptor {
     Handle handle = new Handle();
     Inputs input  = Inputs.getInstance();
     Outputs outputs = Outputs.GetInstance();
-    Caesar caesar = new Caesar();
+    Caesar caesar = Caesar.getInstance();
 
 
     public void Start() {
@@ -30,27 +30,12 @@ public class Encryptor {
 
 
 
-    private void choiceStartMenu(int choice) {
+    private void choiceStartMenu(int choiceInput) {
         System.out.println("please enter filepath");
         String filePath = input.stringInput();
 
         if(handle.validateFile(filePath)) {
-            switch(choice) {
-                case 1:
-                    String encrypData = caesar.encrypt(fileReader(filePath));
-                    fileWriter(encrypData, Mode.ENCRYPT, filePath);
-                    break;
-                case 2:
-                    System.out.println("please enter decryption key");
-                    String decryptKey = input.stringInput();
-                    String decrypData = caesar.decrypt(fileReader(filePath), typeConverts.stringToInt(decryptKey));
-                    fileWriter(decrypData, Mode.DECRYPT, filePath);
-                    break;
-
-                default:
-                    System.out.println("invalid value, Enter one of the visually choices");
-                    break;
-            }
+            caesar.CaesarMenu(choiceInput,filePath);
         }
     }
 
