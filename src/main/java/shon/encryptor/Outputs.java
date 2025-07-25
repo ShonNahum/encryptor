@@ -1,7 +1,7 @@
 package shon.encryptor;
 
 public class Outputs {
-        private static Outputs instance; // static = class variable, not object!
+        private static Outputs instance;
 
         private Outputs(){}
         public static Outputs GetInstance() {

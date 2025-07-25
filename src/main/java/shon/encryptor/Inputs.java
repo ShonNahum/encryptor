@@ -2,7 +2,7 @@ package shon.encryptor;
 import java.util.Scanner;
 
 public class Inputs {
-    private final Scanner input; // different value for each object,need create object to use.
+    private final Scanner input;
     private static Inputs instance;
 
     private Inputs(){ // private constructor to prevent new instance

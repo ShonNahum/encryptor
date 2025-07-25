@@ -1,7 +1,5 @@
 package shon.encryptor;
 
-import java.io.IOException;
-
 import static shon.encryptor.FileReader.fileReader;
 import static shon.encryptor.FileWriter.fileWriter;
 
