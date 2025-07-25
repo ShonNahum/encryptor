@@ -35,7 +35,7 @@ public class Encryptor {
     private void choiceStartMenu(int choice) {
         System.out.println("please enter filepath");
         String filePath = input.stringInput();
-        if(handle.validateFilePath(filePath)) {
+        if(handle.validateFile(filePath)) {
             if (choice == 1) {
                 String encrypData = caesar.encrypt(fileReader(filePath));
                 fileWriter(encrypData, Mode.ENCRYPT, filePath);

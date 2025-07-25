@@ -17,8 +17,18 @@ public class Caesar implements Algorithems{
     }
 
     private String logic(String data,int shiftKey,Mode mode){
+        StringBuilder newData = new StringBuilder();
+        char shifted;
+        if (mode == Mode.DECRYPT) {
+            shiftKey = -shiftKey;
+        }
 
-        return data;
+        for (char ch : data.toCharArray()) {
+            shifted = (char)(ch + shiftKey);
+            newData.append(shifted);
+        }
+
+            return newData.toString();
 
     }
 
