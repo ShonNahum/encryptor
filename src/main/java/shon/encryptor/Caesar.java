@@ -7,13 +7,13 @@ import static shon.encryptor.FileWriter.fileWriter;
 public class Caesar implements Algorithems{
     private static Caesar instance = new Caesar();
 
-    Utils utils = new Utils();
+    Generator generator = new Generator();
     Inputs input  = Inputs.getInstance();
-    Caesar caesar = Caesar.getInstance();
     TypeConverts typeConverts = new TypeConverts();
 
 
-    private Caesar() {}
+    private Caesar(
+    ) {}
 
     public static Caesar getInstance() {
         return instance;
@@ -22,7 +22,7 @@ public class Caesar implements Algorithems{
 
     @Override
     public String encrypt(String data) {
-        int shiftKey = utils.randomKey();
+        int shiftKey = generator.randomKey();
         return CaesarLogic(data,shiftKey,Mode.ENCRYPT);
     }
 
@@ -51,13 +51,13 @@ public class Caesar implements Algorithems{
     public void CaesarMenu(int choiceInput,String filePath){
         switch(choiceInput) {
             case 1:
-                String encrypData = caesar.encrypt(fileReader(filePath));
+                String encrypData = encrypt(fileReader(filePath));
                 fileWriter(encrypData, Mode.ENCRYPT, filePath);
                 break;
             case 2:
                 System.out.println("please enter decryption key");
                 String decryptKey = input.stringInput();
-                String decrypData = caesar.decrypt(fileReader(filePath), typeConverts.stringToInt(decryptKey));
+                String decrypData = decrypt(fileReader(filePath), typeConverts.stringToInt(decryptKey));
                 fileWriter(decrypData, Mode.DECRYPT, filePath);
                 break;
 

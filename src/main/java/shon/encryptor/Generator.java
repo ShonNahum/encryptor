@@ -2,7 +2,7 @@ package shon.encryptor;
 
 import java.util.Random;
 
-public class Utils {
+public class Generator {
     public int randomKey() {
         Random rand = new Random();
         int number = rand.nextInt(20);
