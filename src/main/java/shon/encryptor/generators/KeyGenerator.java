@@ -1,5 +1,6 @@
 package shon.encryptor.generators;
 
+
 import java.util.Random;
 
 public class KeyGenerator {

@@ -8,16 +8,16 @@ import shon.encryptor.ModeMenu.ModePrinter;
 import shon.encryptor.ModeMenu.ModeValidator;
 
 public class Encryptor {
+ // private final = Instance shouldn’t change (best practice) (ask yonke to explain better)
+    private final TypeConverts typeConverts = new TypeConverts();
+    private final FileValidation fileValidation = new FileValidation();
+    private final ModeValidator modeValidator = new ModeValidator();
+    private final Inputs input  = Inputs.getInstance();
+    private final Caesar caesar = new Caesar();
+    private final ModePrinter modePrinter = new ModePrinter();
 
-    TypeConverts typeConverts = new TypeConverts();
-    FileValidation fileValidation = new FileValidation();
-    ModeValidator modeValidator = new ModeValidator();
-    Inputs input  = Inputs.getInstance();
-    Caesar caesar = new Caesar();
-    ModePrinter modePrinter = new ModePrinter();
 
-
-    public void Start() {
+    public void start() {
         modePrinter.printModeMenu();
         while(true) {
             int modeInput = modeValidator.validatedMode(typeConverts.stringToInt(input.stringInput()));
@@ -26,19 +26,19 @@ public class Encryptor {
                 return;
             }
             else if (modeInput != -1) {
-                choiceStartMenu(modeInput);
+                processUserChoice(modeInput);
             }
             modePrinter.printModeMenu();
 
         }
     }
 
-    private void choiceStartMenu(int modeInput) {
+    private void processUserChoice(int modeInput) {
         System.out.println("please enter filepath");
         String filePath = input.stringInput();
 
         if(fileValidation.validateFile(filePath)) {
-            caesar.CaesarMenu(modeInput,filePath);
+            caesar.caesarMenu(modeInput,filePath);
         }
     }
 }

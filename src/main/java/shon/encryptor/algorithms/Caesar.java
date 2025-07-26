@@ -12,31 +12,30 @@ import static shon.encryptor.filesHelper.FileWriter.fileWriter;
 
 public class Caesar implements Algorithm {
 
-    KeyGenerator keyGenerator = new KeyGenerator();
-    Inputs input  = Inputs.getInstance();
-    TypeConverts typeConverts = new TypeConverts();
+    private final KeyGenerator keyGenerator = new KeyGenerator();
+    private final Inputs input  = Inputs.getInstance();
+    private final TypeConverts typeConverts = new TypeConverts();
 
     @Override
     public String encrypt(String data) {
         int shiftKey = keyGenerator.generateKey();
-        return CaesarLogic(data,shiftKey, Mode.ENCRYPT);
+        return caesarLogic(data,shiftKey, Mode.ENCRYPT);
     }
 
     @Override
     public String decrypt(String data,int shiftKey) {
-        return CaesarLogic(data,shiftKey,Mode.DECRYPT);
+        return caesarLogic(data,shiftKey,Mode.DECRYPT);
 
     }
 
-    private String CaesarLogic(String data,int shiftKey,Mode mode){
+    private String caesarLogic(String data,int shiftKey,Mode mode){
         StringBuilder newData = new StringBuilder();
-        char shifted;
         if (mode == Mode.DECRYPT) {
             shiftKey = -shiftKey;
         }
 
         for (char ch : data.toCharArray()) {
-            shifted = (char)(ch + shiftKey);
+            char shifted = (char)(ch + shiftKey);
             newData.append(shifted);
         }
 
@@ -44,17 +43,20 @@ public class Caesar implements Algorithm {
 
     }
 
-    public void CaesarMenu(int choiceInput,String filePath){
+    public void caesarMenu(int choiceInput,String filePath){
         switch(choiceInput) {
             case 1:
-                String encrypData = encrypt(fileReader(filePath));
-                fileWriter(encrypData, Mode.ENCRYPT, filePath);
+                String encryptedData = encrypt(fileReader(filePath));
+                fileWriter(encryptedData, Mode.ENCRYPT, filePath);
                 break;
             case 2:
-                System.out.println("please enter decryption key");
+                System.out.println("Please enter decryption key:");
                 String decryptKey = input.stringInput();
-                String decrypData = decrypt(fileReader(filePath), typeConverts.stringToInt(decryptKey));
-                fileWriter(decrypData, Mode.DECRYPT, filePath);
+                int validatedDecryptkey = typeConverts.stringToInt(decryptKey);
+                if (validatedDecryptkey != -1) {
+                    String decryptedData = decrypt(fileReader(filePath), validatedDecryptkey);
+                    fileWriter(decryptedData, Mode.DECRYPT, filePath);
+                }
                 break;
 
             default:

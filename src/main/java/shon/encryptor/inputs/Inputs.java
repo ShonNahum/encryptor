@@ -1,13 +1,12 @@
 package shon.encryptor.inputs;
 import java.util.Scanner;
 
-public class Inputs {
+public final class  Inputs { // i put final so classes can't inherit from this class
     private final Scanner input;
     private static Inputs instance;
 
     private Inputs(){ // private constructor to prevent new instance
         input = new Scanner(System.in);
-
     }
 
     public static Inputs getInstance() {
