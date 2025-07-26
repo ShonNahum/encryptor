@@ -5,7 +5,7 @@ public class ModeValidator {
 
     }
 
-    public int validatedMode(int option) {
+    public int validatedModeOption(int option) {
 
         if (option == 1 || option == 2 || option == 3) {
             return option;
