@@ -6,7 +6,9 @@ public class ModeValidator {
     }
 
     public int validatedModeOption(int option) {
-
+        // USE SWITCH CASE
+        // READ ABOUT YEILD RETURN
+        // no need validate class for that, its part of the menu
         if (option == 1 || option == 2 || option == 3) {
             return option;
         } else {

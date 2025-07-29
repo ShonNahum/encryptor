@@ -16,13 +16,13 @@ public class ModeStarter {
 
     public void start() {
         modePrinter.printModeMenu();
-        while(true) {
+        while(true) { // todo DO WHILE
             int modeInput = modeValidator.validatedModeOption(typeConverts.stringToInt(input.stringInput()));
 
             if (modeInput == 3){
                 return;
             }
-            else if (modeInput != -1) {
+            else if (modeInput != -1) { // can put the validation here
                 processUserChoice(modeInput);
             }
             modePrinter.printModeMenu();

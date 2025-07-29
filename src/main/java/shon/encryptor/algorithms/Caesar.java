@@ -7,10 +7,11 @@ import shon.encryptor.convertions.TypeConverts;
 import shon.encryptor.ModeMenu.enums.Mode;
 import shon.encryptor.algorithms.interfaces.Algorithm;
 
+import static shon.encryptor.ModeMenu.enums.Mode.ENCRYPT;
 import static shon.encryptor.filesHelper.FileReader.fileReader;
 import static shon.encryptor.filesHelper.FileWriter.fileWriter;
 
-public class Caesar implements Algorithm {
+public final class Caesar implements Algorithm {
 
     private final KeyGenerator keyGenerator = new KeyGenerator();
     private final Inputs input  = Inputs.getInstance();
@@ -19,7 +20,7 @@ public class Caesar implements Algorithm {
     @Override
     public String encrypt(String data) {
         int shiftKey = keyGenerator.generateKey();
-        return caesarLogic(data,shiftKey, Mode.ENCRYPT);
+        return caesarLogic(data, shiftKey, ENCRYPT);
     }
 
     @Override
@@ -45,9 +46,10 @@ public class Caesar implements Algorithm {
 
     public void caesarMenu(int choiceInput,String filePath){
         switch(choiceInput) {
-            case 1:
+//            case 1 -> {}
+            case 1: // make it constant, idk what is it 1
                 String encryptedData = encrypt(fileReader(filePath));
-                fileWriter(encryptedData, Mode.ENCRYPT, filePath);
+                fileWriter(encryptedData, ENCRYPT, filePath);
                 break;
             case 2:
                 System.out.println("Please enter decryption key:");
