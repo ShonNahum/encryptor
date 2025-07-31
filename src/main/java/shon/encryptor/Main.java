@@ -2,9 +2,8 @@ package shon.encryptor;
 
 public class Main {
     public static void main(String[] args) {
-        Encryptor encryptor = new Encryptor();
-        encryptor.startEncryptor();
-        // TODO         new Encryptor().startEncryptor();
+        new Encryptor().start();
+
         }
     }
 

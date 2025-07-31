@@ -1,73 +1,67 @@
 package shon.encryptor.algorithms;
+import shon.encryptor.utils.File;
+import shon.encryptor.utils.ScannerPrompt;
+import shon.encryptor.enums.Mode;
+import shon.encryptor.interfaces.Cipher;
+import java.util.Random;
+import static shon.encryptor.enums.Mode.DECRYPT;
+import static shon.encryptor.enums.Mode.ENCRYPT;
 
+public final class Caesar implements Cipher {
 
-import shon.encryptor.generators.KeyGenerator;
-import shon.encryptor.inputs.Inputs;
-import shon.encryptor.convertions.TypeConverts;
-import shon.encryptor.ModeMenu.enums.Mode;
-import shon.encryptor.algorithms.interfaces.Algorithm;
-
-import static shon.encryptor.ModeMenu.enums.Mode.ENCRYPT;
-import static shon.encryptor.filesHelper.FileReader.fileReader;
-import static shon.encryptor.filesHelper.FileWriter.fileWriter;
-
-public final class Caesar implements Algorithm {
-
-    private final KeyGenerator keyGenerator = new KeyGenerator();
-    private final Inputs input  = Inputs.getInstance();
-    private final TypeConverts typeConverts = new TypeConverts();
+    private final ScannerPrompt prompt = ScannerPrompt.getInstance();
 
     @Override
     public String encrypt(String data) {
-        int shiftKey = keyGenerator.generateKey();
+        int shiftKey = new Random().nextInt(20);
         return caesarLogic(data, shiftKey, ENCRYPT);
     }
 
     @Override
-    public String decrypt(String data,int shiftKey) {
-        return caesarLogic(data,shiftKey,Mode.DECRYPT);
+    public String decrypt(String data, int shiftKey) {
+        return caesarLogic(data, shiftKey, Mode.DECRYPT);
 
     }
 
-    private String caesarLogic(String data,int shiftKey,Mode mode){
+    private String caesarLogic(String data, int shiftKey, Mode mode) {
         StringBuilder newData = new StringBuilder();
-        if (mode == Mode.DECRYPT) {
+
+        if (mode.equals(DECRYPT)) {
             shiftKey = -shiftKey;
         }
 
         for (char ch : data.toCharArray()) {
-            char shifted = (char)(ch + shiftKey);
+            char shifted = (char) (ch + shiftKey);
             newData.append(shifted);
         }
-
-            return newData.toString();
-
+        return newData.toString();
     }
 
-    public void caesarMenu(int choiceInput,String filePath){
-        switch(choiceInput) {
-//            case 1 -> {}
-            case 1: // make it constant, idk what is it 1
-                String encryptedData = encrypt(fileReader(filePath));
-                fileWriter(encryptedData, ENCRYPT, filePath);
-                break;
-            case 2:
-                System.out.println("Please enter decryption key:");
-                String decryptKey = input.stringInput();
-                int validatedDecryptkey = typeConverts.stringToInt(decryptKey);
-                if (validatedDecryptkey != -1) {
-                    String decryptedData = decrypt(fileReader(filePath), validatedDecryptkey);
-                    fileWriter(decryptedData, Mode.DECRYPT, filePath);
+    public void menu(String choiceInput, String filePath) throws Exception {
+        final File file = File.getInstance();
+        final String ENCRYPTION = "1";
+        final String DECRYPTION = "2";
+        try
+        {
+            switch (choiceInput) {
+                case ENCRYPTION -> {
+                    String encryptedData = encrypt(file.read(filePath));
+                    file.write(encryptedData, filePath, ENCRYPT);
                 }
-                break;
-
-            default:
-                System.out.println("invalid value, Enter one of the visually choices");
-                break;
+                case DECRYPTION -> {
+                    System.out.println("Please enter decryption key:");
+                    String decryptKey = prompt.string();
+                    String decryptedData = decrypt(file.read(filePath), Integer.parseInt(decryptKey));
+                    file.write(decryptedData, filePath, DECRYPT);
+                }
+                default -> System.out.println("invalid value, Enter one of the visually choices");
+            }
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e);
         }
     }
-
-
 }
 
 

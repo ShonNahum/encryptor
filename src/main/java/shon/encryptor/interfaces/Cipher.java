@@ -1,6 +1,6 @@
-package shon.encryptor.algorithms.interfaces;
+package shon.encryptor.interfaces;
 
-public interface Algorithm
+public interface Cipher
 {
     String encrypt(String data);
     String decrypt(String data,int key);
