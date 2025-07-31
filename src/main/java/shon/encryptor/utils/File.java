@@ -1,6 +1,6 @@
 package shon.encryptor.utils;
 
-import shon.encryptor.enums.Mode;
+import shon.encryptor.enums.    Mode;
 import shon.encryptor.abstracts.IO;
 
 import java.io.IOException;
@@ -23,16 +23,16 @@ public class File extends IO {
     }
 
     @Override
-    public String read(String filepath) throws Exception {
+    public String read(String filepath) throws Throwable {
         try {
             return readString(Path.of(filepath));
         } catch (IOException e) {
-            throw new Exception("Invalid file path: " + e.getMessage());
+            throw new Throwable("Invalid file path: " + e.getMessage());
         }
     }
 
     @Override
-    public void write(String data, String filepath,  Mode mode) throws Exception {
+    public void write(String data, String filepath,  Mode mode) throws Throwable {
         try {
             String[] fileParts = filepath.split("\\.");
             String newFilePath;
@@ -45,8 +45,8 @@ public class File extends IO {
 
             Files.writeString(Path.of(newFilePath), data);
             System.out.println(newFilePath + " Created successfully");
-        } catch (Exception e) {
-            throw new Exception("Failed write to file: " + e.getMessage());
+        } catch (Throwable e) {
+            throw new Throwable("Failed write to file: " + e.getMessage());
         }
     }
 }

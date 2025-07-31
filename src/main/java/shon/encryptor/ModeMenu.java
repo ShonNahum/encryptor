@@ -33,7 +33,7 @@ public class ModeMenu {
         try {
             caesar.menu(modePrompt,(filePath));
             }
-        catch (Exception e) {
+        catch (Throwable e) {
             System.out.printf("%s.%nBack to menu.%n", e.getMessage());
             }
     }

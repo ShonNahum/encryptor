@@ -6,10 +6,10 @@ import shon.encryptor.interfaces.Write;
 
     public abstract class IO implements Read, Write {
     @Override
-    public String read(String path) throws Exception {
+    public String read(String path) throws Throwable {
         return path;
     }
 
     @Override
-    public void write(String data, String path, Mode mode) throws Exception {}
+    public void write(String data, String path, Mode mode) throws Throwable {}
 }

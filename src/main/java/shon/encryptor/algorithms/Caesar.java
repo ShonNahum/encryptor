@@ -37,7 +37,7 @@ public final class Caesar implements Cipher {
         return newData.toString();
     }
 
-    public void menu(String choiceInput, String filePath) throws Exception {
+    public void menu(String choiceInput, String filePath) throws Throwable {
         final File file = File.getInstance();
         final String ENCRYPTION = "1";
         final String DECRYPTION = "2";
@@ -57,9 +57,9 @@ public final class Caesar implements Cipher {
                 default -> System.out.println("invalid value, Enter one of the visually choices");
             }
         }
-        catch (Exception e)
+        catch (Throwable e)
         {
-            throw new Exception(e);
+            throw new Throwable(e);
         }
     }
 }
