@@ -1,12 +1,12 @@
 package shon.encryptor;
 
-import shon.encryptor.utils.ScannerPrompt;
+import shon.encryptor.utils.ConsolePrompt;
 import shon.encryptor.algorithms.Caesar;
 
 
 
 public class ModeMenu {
-    private final ScannerPrompt prompt  = ScannerPrompt.getInstance();
+    private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
     private final Caesar caesar = new Caesar();
 
     public void start() {
@@ -16,7 +16,7 @@ public class ModeMenu {
 
         do {
             printModeMenu();
-            String modePrompt = prompt.string();
+            String modePrompt = consolePrompt.string();
 
             switch (modePrompt)
             {
@@ -29,7 +29,7 @@ public class ModeMenu {
 
     private void processModeMenu(String modePrompt) {
         System.out.println("Please enter filepath:");
-        String filePath = prompt.string();
+        String filePath = consolePrompt.string();
         try {
             caesar.menu(modePrompt,(filePath));
             }

@@ -1,6 +1,6 @@
 package shon.encryptor.algorithms;
 import shon.encryptor.utils.File;
-import shon.encryptor.utils.ScannerPrompt;
+import shon.encryptor.utils.ConsolePrompt;
 import shon.encryptor.enums.Mode;
 import shon.encryptor.interfaces.Cipher;
 import java.util.Random;
@@ -9,7 +9,7 @@ import static shon.encryptor.enums.Mode.ENCRYPT;
 
 public final class Caesar implements Cipher {
 
-    private final ScannerPrompt prompt = ScannerPrompt.getInstance();
+    private final ConsolePrompt consolePrompt = ConsolePrompt.getInstance();
 
     @Override
     public String encrypt(String data) {
@@ -50,7 +50,7 @@ public final class Caesar implements Cipher {
                 }
                 case DECRYPTION -> {
                     System.out.println("Please enter decryption key:");
-                    String decryptKey = prompt.string();
+                    String decryptKey = consolePrompt.string();
                     String decryptedData = decrypt(file.read(filePath), Integer.parseInt(decryptKey));
                     file.write(decryptedData, filePath, DECRYPT);
                 }
