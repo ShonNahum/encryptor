@@ -14,25 +14,22 @@ public class GeneralMenu {
     private final AlgorithmsMenu algorithmsMenu = new AlgorithmsMenu();
     private final ModesMenu modesMenu = new ModesMenu();
     final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
-    private Algorithms algorithmPrompt;
-    private Modes modePrompt;
-    private String filePath;
 
 
 
     public void start() {
 
         do {
-            algorithmPrompt = algorithmsMenu.start();
-            modePrompt = modesMenu.start();
+            Algorithms algorithmPrompt = algorithmsMenu.start();
+            Modes modePrompt = modesMenu.start();
             System.out.println("Please enter filepath:");
-            filePath = consolePrompt.string();
-            Menu();
+            String filePath = consolePrompt.string();
+            Menu(algorithmPrompt,modePrompt,filePath);
         } while (true);
     }
 
 
-    private void Menu() {
+    private void Menu(Algorithms algorithmPrompt,Modes modePrompt , String filePath) {
         try
         {
             if (modePrompt.equals(Modes.ENCRYPT))

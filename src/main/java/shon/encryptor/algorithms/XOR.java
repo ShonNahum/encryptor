@@ -13,10 +13,10 @@ public class XOR implements Cipher {
 
     @Override
     public void encrypt(String filePath) throws Throwable {
-        final int MAX_BYTES = 256;
+        final int BYTE_RANGE = 256;
         try {
             String data = fileIO.read(filePath);
-            byte key = (byte) new Random().nextInt(MAX_BYTES);
+            byte key = (byte) new Random().nextInt(BYTE_RANGE);
             System.out.println(Byte.toUnsignedInt(key));
             String encryptedData = XORLogic(data, key);
             fileIO.write(encryptedData, filePath, ENCRYPT);
@@ -29,8 +29,10 @@ public class XOR implements Cipher {
 
     @Override
     public void decrypt(String filePath, int decryptKey) throws Throwable {
+        final  int MAX_BYTE = 255;
+        final int MIN_BYTE = 0;
         try {
-            if (decryptKey < 0 || decryptKey > 255)
+            if (decryptKey < MIN_BYTE || decryptKey > MAX_BYTE)
                 throw new IllegalArgumentException("Key must be between 0 and 255");
 
             byte byteDecryptKey = (byte) decryptKey;

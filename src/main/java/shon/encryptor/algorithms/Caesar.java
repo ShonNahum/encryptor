@@ -1,6 +1,5 @@
 package shon.encryptor.algorithms;
 import shon.encryptor.utils.FileIO;
-import shon.encryptor.utils.ConsolePrompt;
 import shon.encryptor.enums.Modes;
 import shon.encryptor.interfaces.Cipher;
 import java.util.Random;
@@ -10,14 +9,14 @@ import static shon.encryptor.enums.Modes.ENCRYPT;
 public final class Caesar implements Cipher {
 
     final FileIO fileIO = FileIO.getInstance();
-    final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
 
 
     @Override
     public void encrypt(String filePath) throws Throwable {
+        final int SHIFT_RANGE = 20;
         try {
             String data = fileIO.read(filePath);
-            int shiftKey = new Random().nextInt(20);
+            int shiftKey = new Random().nextInt(SHIFT_RANGE);
             System.out.println(shiftKey);
             String encryptedData = caesarLogic(data, shiftKey, ENCRYPT);
             fileIO.write(encryptedData, filePath, ENCRYPT);
