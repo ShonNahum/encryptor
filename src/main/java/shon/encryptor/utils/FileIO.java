@@ -1,6 +1,6 @@
 package shon.encryptor.utils;
 
-import shon.encryptor.enums.    Mode;
+import shon.encryptor.enums.Modes;
 import shon.encryptor.abstracts.IO;
 
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static java.nio.file.Files.readString;
-import static shon.encryptor.enums.Mode.ENCRYPT;
+import static shon.encryptor.enums.Modes.ENCRYPT;
 
 public class FileIO extends IO {
     private static final FileIO instance = new FileIO();
@@ -32,12 +32,12 @@ public class FileIO extends IO {
     }
 
     @Override
-    public void write(String data, String filepath,  Mode mode) throws Throwable {
+    public void write(String data, String filepath,  Modes modes) throws Throwable {
         try {
             String[] fileParts = filepath.split("\\.");
             String newFilePath;
 
-            if (ENCRYPT.equals(mode)) {
+            if (ENCRYPT.equals(modes)) {
                 newFilePath = fileParts[0] + "_encrypted" + "." + fileParts[1];
             } else {
                 newFilePath = fileParts[0] + "_decrypted" + "." + fileParts[1];

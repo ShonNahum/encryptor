@@ -2,6 +2,6 @@ package shon.encryptor.interfaces;
 
 public interface Cipher
 {
-    String encrypt(String data);
-    String decrypt(String data,int key);
+    void encrypt(String data) throws Throwable;
+    void decrypt(String data,int key) throws Throwable;
 }

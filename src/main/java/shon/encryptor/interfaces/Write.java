@@ -1,8 +1,8 @@
 package shon.encryptor.interfaces;
 
-import shon.encryptor.enums.Mode;
+import shon.encryptor.enums.Modes;
 
 public interface Write {
-    void write(String data, String path, Mode mode) throws Throwable;
+    void write(String data, String path, Modes modes) throws Throwable;
 
 }

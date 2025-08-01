@@ -1,9 +1,11 @@
 package shon.encryptor;
 
+import shon.encryptor.menus.GeneralMenu;
+
 public class Encryptor {
 
     public void start() {
-        new ModeMenu().start();
+        new GeneralMenu().start();
         }
 
 }

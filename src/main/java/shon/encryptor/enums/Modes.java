@@ -1,6 +1,6 @@
 package shon.encryptor.enums;
 
-public enum Mode {
+public enum Modes {
     ENCRYPT,
     DECRYPT
 }

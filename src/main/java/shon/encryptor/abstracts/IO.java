@@ -1,6 +1,6 @@
 package shon.encryptor.abstracts;
 
-import shon.encryptor.enums.Mode;
+import shon.encryptor.enums.Modes;
 import shon.encryptor.interfaces.Read;
 import shon.encryptor.interfaces.Write;
 
@@ -11,5 +11,5 @@ import shon.encryptor.interfaces.Write;
     }
 
     @Override
-    public void write(String data, String path, Mode mode) throws Throwable {}
+    public void write(String data, String path, Modes modes) throws Throwable {}
 }
