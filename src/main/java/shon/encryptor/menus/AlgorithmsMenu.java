@@ -11,6 +11,7 @@ public class AlgorithmsMenu {
         final String XOR = "2";
         final String REVERSE = "3";
         final String MULTIPLICATION = "4";
+        final String EXIT = "5";
 
 
         printAlgorithmMenu();
@@ -23,6 +24,7 @@ public class AlgorithmsMenu {
             case XOR -> algorithmState = Algorithms.XOR;
             case REVERSE -> algorithmState = Algorithms.REVERSE;
             case MULTIPLICATION -> algorithmState = Algorithms.MULTIPLICATION;
+            case EXIT -> System.exit(0);
 
             default -> System.out.println("Invalid Algorithm Option, try again...");
         }
@@ -32,11 +34,12 @@ public class AlgorithmsMenu {
     private void printAlgorithmMenu(){
         System.out.println(
                 """
-                === Menu ===
+                === Algorithm Menu ===
                 [1] Caesar
                 [2] XOR
                 [3] Reverse
                 [4] Multiplication
+                [5] Exit
                 """
         );
     }

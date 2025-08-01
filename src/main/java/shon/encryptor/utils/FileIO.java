@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Files.readString;
 import static shon.encryptor.enums.Modes.ENCRYPT;
 
@@ -31,8 +32,9 @@ public class FileIO extends IO {
         }
     }
 
+
     @Override
-    public void write(String data, String filepath,  Modes modes) throws Throwable {
+    public void write(String data, String filepath, Modes modes) throws Throwable {
         try {
             String[] fileParts = filepath.split("\\.");
             String newFilePath;
@@ -49,4 +51,5 @@ public class FileIO extends IO {
             throw new Throwable("Failed write to file: " + e.getMessage());
         }
     }
+
 }

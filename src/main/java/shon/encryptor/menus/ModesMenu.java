@@ -28,7 +28,7 @@ public class ModesMenu {
     private void printModeMenu(){
         System.out.println(
                 """
-                === Menu ===
+                === Modes Menu ===
                 [1] Encryption
                 [2] Decryption
                 [3] Exit
