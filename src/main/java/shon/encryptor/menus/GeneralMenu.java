@@ -1,5 +1,6 @@
 package shon.encryptor.menus;
 
+import shon.encryptor.algorithms.XOR;
 import shon.encryptor.enums.Algorithms;
 import shon.encryptor.enums.Modes;
 import shon.encryptor.algorithms.Caesar;
@@ -9,6 +10,7 @@ import shon.encryptor.utils.ConsolePrompt;
 
 public class GeneralMenu {
     private final Caesar caesar = new Caesar();
+    private  final XOR xor = new XOR();
     private final AlgorithmsMenu algorithmsMenu = new AlgorithmsMenu();
     private final ModesMenu modesMenu = new ModesMenu();
     final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
@@ -38,7 +40,7 @@ public class GeneralMenu {
                 long startTime = System.nanoTime();
                 switch (algorithmPrompt) {
                     case CAESAR -> caesar.encrypt(filePath);
-                    case XOR -> System.out.println("2 encrypt");
+                    case XOR -> xor.encrypt(filePath);
                     case REVERSE -> System.out.println("3 encrypt");
                     case MULTIPLICATION -> System.out.println("4 encrypt");
                     default -> System.out.println("Invalid Algorithm Prompt, try again...");
@@ -54,7 +56,7 @@ public class GeneralMenu {
                 long startTime = System.nanoTime();
                 switch (algorithmPrompt) {
                     case CAESAR -> caesar.decrypt(filePath,Integer.parseInt(decryptKey));
-                    case XOR -> System.out.println("2 decrypt");
+                    case XOR -> xor.decrypt(filePath, Integer.parseInt(decryptKey));
                     case REVERSE -> System.out.println("3 decrypt");
                     case MULTIPLICATION -> System.out.println("4 decrypt ");
                     default -> System.out.println("Invalid Algorithm Prompt, try again...");
