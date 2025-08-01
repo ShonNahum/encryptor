@@ -1,5 +1,5 @@
 package shon.encryptor.algorithms;
-import shon.encryptor.utils.File;
+import shon.encryptor.utils.FileIO;
 import shon.encryptor.utils.ConsolePrompt;
 import shon.encryptor.enums.Mode;
 import shon.encryptor.interfaces.Cipher;
@@ -38,21 +38,21 @@ public final class Caesar implements Cipher {
     }
 
     public void menu(String choiceInput, String filePath) throws Throwable {
-        final File file = File.getInstance();
+        final FileIO fileIO = FileIO.getInstance();
         final String ENCRYPTION = "1";
         final String DECRYPTION = "2";
         try
         {
             switch (choiceInput) {
                 case ENCRYPTION -> {
-                    String encryptedData = encrypt(file.read(filePath));
-                    file.write(encryptedData, filePath, ENCRYPT);
+                    String encryptedData = encrypt(fileIO.read(filePath));
+                    fileIO.write(encryptedData, filePath, ENCRYPT);
                 }
                 case DECRYPTION -> {
                     System.out.println("Please enter decryption key:");
                     String decryptKey = consolePrompt.string();
-                    String decryptedData = decrypt(file.read(filePath), Integer.parseInt(decryptKey));
-                    file.write(decryptedData, filePath, DECRYPT);
+                    String decryptedData = decrypt(fileIO.read(filePath), Integer.parseInt(decryptKey));
+                    fileIO.write(decryptedData, filePath, DECRYPT);
                 }
                 default -> System.out.println("invalid value, Enter one of the visually choices");
             }

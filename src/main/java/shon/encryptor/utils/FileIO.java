@@ -10,15 +10,15 @@ import java.nio.file.Path;
 import static java.nio.file.Files.readString;
 import static shon.encryptor.enums.Mode.ENCRYPT;
 
-public class File extends IO {
-    private static final File instance = new File();
+public class FileIO extends IO {
+    private static final FileIO instance = new FileIO();
 
     // Private constructor
-    private File() {
+    private FileIO() {
     }
 
     // Singleton accessor
-    public static File getInstance() {
+    public static FileIO getInstance() {
         return instance;
     }
 
