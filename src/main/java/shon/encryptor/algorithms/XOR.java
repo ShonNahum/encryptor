@@ -29,7 +29,7 @@ public class XOR implements Cipher {
 
     @Override
     public void decrypt(String filePath, int decryptKey) throws Throwable {
-        final  int MAX_BYTE = 255;
+        final int MAX_BYTE = 255;
         final int MIN_BYTE = 0;
         try {
             if (decryptKey < MIN_BYTE || decryptKey > MAX_BYTE)

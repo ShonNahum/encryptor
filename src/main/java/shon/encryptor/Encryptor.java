@@ -1,7 +1,4 @@
 package shon.encryptor;
-
-import shon.encryptor.algorithms.Caesar;
-import shon.encryptor.algorithms.XOR;
 import shon.encryptor.enums.Algorithms;
 import shon.encryptor.enums.Modes;
 import shon.encryptor.menus.AlgorithmsMenu;

@@ -14,11 +14,9 @@ import static shon.encryptor.enums.Modes.ENCRYPT;
 public class FileIO extends IO {
     private static final FileIO instance = new FileIO();
 
-    // Private constructor
     private FileIO() {
     }
 
-    // Singleton accessor
     public static FileIO getInstance() {
         return instance;
     }
