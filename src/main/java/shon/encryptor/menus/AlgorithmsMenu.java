@@ -4,18 +4,20 @@ import shon.encryptor.enums.Algorithms;
 import shon.encryptor.utils.ConsolePrompt;
 
 public class AlgorithmsMenu {
+    private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
 
     public Algorithms start() {
-        final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
+        printAlgorithmMenu();
+        String algorithmPrompt = consolePrompt.string();
+        return processAlgorithmMenu(algorithmPrompt);
+    }
+
+    private Algorithms processAlgorithmMenu(String AlgorithmPrompt){
         final String CAESAR = "1";
         final String XOR = "2";
         final String REVERSE = "3";
         final String MULTIPLICATION = "4";
         final String EXIT = "5";
-
-
-        printAlgorithmMenu();
-        String AlgorithmPrompt = consolePrompt.string();
         Algorithms algorithmState = null;
 
         switch (AlgorithmPrompt)

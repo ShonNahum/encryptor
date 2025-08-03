@@ -4,17 +4,20 @@ import shon.encryptor.enums.Modes;
 import shon.encryptor.utils.ConsolePrompt;
 
 public class ModesMenu {
+    final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
+
 
     public Modes start() {
-        final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
+        printModeMenu();
+        String modePrompt = consolePrompt.string();
+        return processModeMenu(modePrompt);
+    }
+
+    private Modes processModeMenu(String modePrompt) {
         final String DECRYPTION = "2";
         final String ENCRYPTION = "1";
         final String EXIT = "3";
-
-        printModeMenu();
-        String modePrompt = consolePrompt.string();
         Modes modesState = null;
-
         switch (modePrompt)
         {
             case ENCRYPTION -> modesState = Modes.ENCRYPT;

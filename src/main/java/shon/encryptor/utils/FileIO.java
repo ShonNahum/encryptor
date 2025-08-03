@@ -1,17 +1,17 @@
 package shon.encryptor.utils;
 
 import shon.encryptor.enums.Modes;
-import shon.encryptor.abstracts.IO;
+import shon.encryptor.interfaces.Read;
+import shon.encryptor.interfaces.Write;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Files.readString;
 import static shon.encryptor.enums.Modes.ENCRYPT;
 
-public class FileIO extends IO {
+public class FileIO implements Read, Write {
     private static final FileIO instance = new FileIO();
 
     private FileIO() {

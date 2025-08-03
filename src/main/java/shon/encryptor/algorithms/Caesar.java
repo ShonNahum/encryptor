@@ -1,4 +1,5 @@
 package shon.encryptor.algorithms;
+import shon.encryptor.utils.ConsolePrompt;
 import shon.encryptor.utils.FileIO;
 import shon.encryptor.enums.Modes;
 import shon.encryptor.interfaces.Cipher;
@@ -9,6 +10,8 @@ import static shon.encryptor.enums.Modes.ENCRYPT;
 public final class Caesar implements Cipher {
 
     final FileIO fileIO = FileIO.getInstance();
+    private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
+
 
 
     @Override
@@ -28,7 +31,9 @@ public final class Caesar implements Cipher {
     }
 
     @Override
-    public void decrypt(String filePath,int decryptKey) throws Throwable {
+    public void decrypt(String filePath) throws Throwable {
+        System.out.println("Please enter decryption key:");
+        int decryptKey = Integer.parseInt(consolePrompt.string());
         try {
             String data = fileIO.read(filePath);
             String decryptedData = caesarLogic(data,decryptKey, Modes.DECRYPT);

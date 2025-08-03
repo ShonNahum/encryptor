@@ -4,16 +4,14 @@ import shon.encryptor.algorithms.XOR;
 import shon.encryptor.enums.Algorithms;
 import shon.encryptor.enums.Modes;
 import shon.encryptor.algorithms.Caesar;
-import shon.encryptor.utils.ConsolePrompt;
 import shon.encryptor.utils.TimerHandler;
 
 
 public class GeneralMenu {
     private final Caesar caesar = new Caesar();
     private final XOR xor = new XOR();
-    private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
     private final TimerHandler timerHandler = new TimerHandler();
-
+    private  final AlgorithmsMenu algorithmsMenu = new AlgorithmsMenu();
 
     public void start(Algorithms algorithmPrompt,Modes modePrompt , String filePath) {
         try
@@ -22,10 +20,8 @@ public class GeneralMenu {
             long stopTime;
 
             if(modePrompt.equals(Modes.DECRYPT)) {
-                System.out.println("Please enter decryption key:");
-                String decryptKey = consolePrompt.string();
                 startTime = timerHandler.start();
-                decryptionProcess(algorithmPrompt,filePath,decryptKey);
+                decryptionProcess(algorithmPrompt,filePath);
             }
             else
             {
@@ -34,7 +30,6 @@ public class GeneralMenu {
             }
             stopTime = timerHandler.stop();
             System.out.printf("the process took %.2f ms%n",timerHandler.getDurationMillis(startTime,stopTime));
-
         }
         catch (Throwable e) {
             System.out.printf("%s.%nBack to menu.%n", e.getMessage());
@@ -42,25 +37,23 @@ public class GeneralMenu {
     }
 
 
-    private void encryptionProcess(Algorithms algorithmPrompt,String filePath) throws Throwable {
+    public void encryptionProcess(Algorithms algorithmPrompt,String filePath) throws Throwable {
         switch (algorithmPrompt) {
             case CAESAR -> caesar.encrypt(filePath);
             case XOR -> xor.encrypt(filePath);
-            case REVERSE -> System.out.println("3 encrypt");
+            case REVERSE -> start(algorithmsMenu.start() ,Modes.DECRYPT,filePath);
             case MULTIPLICATION -> System.out.println("4 encrypt");
             default -> System.out.println("Invalid Algorithm Prompt, try again...");
         }
-
     }
 
-    private void decryptionProcess(Algorithms algorithmPrompt,String filePath,String decryptKey) throws Throwable {
+    public void decryptionProcess(Algorithms algorithmPrompt,String filePath) throws Throwable {
         switch (algorithmPrompt) {
-            case CAESAR -> caesar.decrypt(filePath,Integer.parseInt(decryptKey));
-            case XOR -> xor.decrypt(filePath, Integer.parseInt(decryptKey));
-            case REVERSE -> System.out.println("3 decrypt");
+            case CAESAR -> caesar.decrypt(filePath);
+            case XOR -> xor.decrypt(filePath);
+            case REVERSE -> start(algorithmsMenu.start() ,Modes.ENCRYPT,filePath);
             case MULTIPLICATION -> System.out.println("4 decrypt ");
             default -> System.out.println("Invalid Algorithm Prompt, try again...");
         }
-
     }
 }

@@ -1,6 +1,7 @@
 package shon.encryptor.algorithms;
 
 import shon.encryptor.interfaces.Cipher;
+import shon.encryptor.utils.ConsolePrompt;
 import shon.encryptor.utils.FileIO;
 
 import java.util.Random;
@@ -10,6 +11,8 @@ import static shon.encryptor.enums.Modes.ENCRYPT;
 
 public class XOR implements Cipher {
     final FileIO fileIO = FileIO.getInstance();
+    private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
+
 
     @Override
     public void encrypt(String filePath) throws Throwable {
@@ -28,7 +31,10 @@ public class XOR implements Cipher {
     }
 
     @Override
-    public void decrypt(String filePath, int decryptKey) throws Throwable {
+    public void decrypt(String filePath) throws Throwable {
+        System.out.println("Please enter decryption key:");
+        int decryptKey = Integer.parseInt(consolePrompt.string());
+
         final int MAX_BYTE = 255;
         final int MIN_BYTE = 0;
         try {

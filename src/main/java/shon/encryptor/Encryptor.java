@@ -14,12 +14,12 @@ public class Encryptor {
 
     public void start() {
         do {
-            Algorithms algorithmPrompt = algorithmsMenu.start();
             Modes modePrompt = modesMenu.start();
+            Algorithms algorithmPrompt = algorithmsMenu.start();
             System.out.println("Please enter filepath:");
             String filePath = consolePrompt.string();
-            generalMenu.start(algorithmPrompt,modePrompt,filePath);
+            generalMenu.start(algorithmPrompt, modePrompt, filePath);
         } while (true);
-        }
+    }
 
 }
