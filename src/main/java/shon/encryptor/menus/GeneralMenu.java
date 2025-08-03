@@ -41,7 +41,7 @@ public class GeneralMenu {
         switch (algorithmPrompt) {
             case CAESAR -> caesar.encrypt(filePath);
             case XOR -> xor.encrypt(filePath);
-            case REVERSE -> start(algorithmsMenu.start() ,Modes.DECRYPT,filePath);
+            case REVERSE -> decryptionProcess(algorithmsMenu.start(),filePath);
             case MULTIPLICATION -> System.out.println("4 encrypt");
             default -> System.out.println("Invalid Algorithm Prompt, try again...");
         }
@@ -51,7 +51,7 @@ public class GeneralMenu {
         switch (algorithmPrompt) {
             case CAESAR -> caesar.decrypt(filePath);
             case XOR -> xor.decrypt(filePath);
-            case REVERSE -> start(algorithmsMenu.start() ,Modes.ENCRYPT,filePath);
+            case REVERSE -> encryptionProcess(algorithmsMenu.start(),filePath);
             case MULTIPLICATION -> System.out.println("4 decrypt ");
             default -> System.out.println("Invalid Algorithm Prompt, try again...");
         }
