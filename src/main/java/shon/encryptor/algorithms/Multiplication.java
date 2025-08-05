@@ -1,0 +1,60 @@
+package shon.encryptor.algorithms;
+
+import shon.encryptor.interfaces.Cipher;
+import shon.encryptor.utils.ConsolePrompt;
+import shon.encryptor.utils.FileIO;
+import shon.encryptor.utils.MathHandler;
+
+import java.util.Random;
+
+import static shon.encryptor.enums.Modes.DECRYPT;
+import static shon.encryptor.enums.Modes.ENCRYPT;
+
+public class Multiplication implements Cipher {
+    private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
+    private final MathHandler mathHandler = MathHandler.getInstance();
+    private final FileIO fileIO = FileIO.getInstance();
+
+    @Override
+    public void encrypt(String filePath) throws Throwable {
+        final int BYTE_RANGE = 10;
+        try {
+            String data = fileIO.read(filePath);
+            int key = mathHandler.alwaysOdd(new Random().nextInt(BYTE_RANGE));
+            System.out.println(key);
+            String encryptedData = MultiplicationLogic(data, key);
+            fileIO.write(encryptedData, filePath, ENCRYPT);
+        }
+        catch (Throwable e)
+        {
+            throw new Throwable(e);
+        }
+    }
+
+    @Override
+    public void decrypt(String filePath) throws Throwable {
+        final byte ONE_BYTE = 1;
+        try {
+            System.out.println("Please enter the encryption key:");
+            double encryptKeyPrompt = Integer.parseInt(consolePrompt.string());
+            double decryptKey = mathHandler.divideByByte(ONE_BYTE, encryptKeyPrompt);
+            System.out.printf("the decrypt key is %s%n",decryptKey);
+            String data = fileIO.read(filePath);
+            String decryptedData = MultiplicationLogic(data, decryptKey);
+            fileIO.write(decryptedData, filePath, DECRYPT);
+        }
+        catch (Throwable e)
+        {
+            throw new Throwable(e);
+        }
+    }
+
+
+    private String MultiplicationLogic(String data, double key) {
+        StringBuilder newData = new StringBuilder();
+        for (char ch : data.toCharArray()) {
+            newData.append((char)(ch * key));
+        }
+        return newData.toString();
+    }
+}

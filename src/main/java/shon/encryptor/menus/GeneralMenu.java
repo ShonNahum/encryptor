@@ -1,5 +1,6 @@
 package shon.encryptor.menus;
 
+import shon.encryptor.algorithms.Multiplication;
 import shon.encryptor.algorithms.XOR;
 import shon.encryptor.enums.Algorithms;
 import shon.encryptor.enums.Modes;
@@ -12,6 +13,7 @@ public class GeneralMenu {
     private final XOR xor = new XOR();
     private final TimerHandler timerHandler = new TimerHandler();
     private  final AlgorithmsMenu algorithmsMenu = new AlgorithmsMenu();
+    private final Multiplication multiplication = new Multiplication();
 
     public void start(Algorithms algorithmPrompt,Modes modePrompt , String filePath) {
         try
@@ -42,7 +44,7 @@ public class GeneralMenu {
             case CAESAR -> caesar.encrypt(filePath);
             case XOR -> xor.encrypt(filePath);
             case REVERSE -> decryptionProcess(algorithmsMenu.start(),filePath);
-            case MULTIPLICATION -> System.out.println("4 encrypt");
+            case MULTIPLICATION -> multiplication.encrypt(filePath);
             default -> System.out.println("Invalid Algorithm Prompt, try again...");
         }
     }
@@ -52,7 +54,7 @@ public class GeneralMenu {
             case CAESAR -> caesar.decrypt(filePath);
             case XOR -> xor.decrypt(filePath);
             case REVERSE -> encryptionProcess(algorithmsMenu.start(),filePath);
-            case MULTIPLICATION -> System.out.println("4 decrypt ");
+            case MULTIPLICATION -> multiplication.decrypt(filePath);
             default -> System.out.println("Invalid Algorithm Prompt, try again...");
         }
     }
