@@ -7,8 +7,8 @@ public class ModesMenu {
     final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
 
 
-    public Modes start() {
-        printModeMenu();
+    public Modes start() { // too general name // takeSelection
+        printModeMenu(); // modeMenu
         String modePrompt = consolePrompt.string();
         return processModeMenu(modePrompt);
     }
@@ -18,7 +18,7 @@ public class ModesMenu {
         final String ENCRYPTION = "1";
         final String EXIT = "3";
         Modes modesState = null;
-        switch (modePrompt)
+        switch (modePrompt) // learn about yeld deeply
         {
             case ENCRYPTION -> modesState = Modes.ENCRYPT;
             case DECRYPTION -> modesState = Modes.DECRYPT;
@@ -26,9 +26,9 @@ public class ModesMenu {
             default -> System.out.println("Invalid Mode Option, try again...");
         }
         return modesState;
-    }
+    } // inside class i want to have details function name becuase i dont call the class object , but outside its ok to be like only print. becuase the class name represent itself
 
-    private void printModeMenu(){
+    private void printModeMenu(){ // why printModeMenu if im in class ModeMenu, use just printMode
         System.out.println(
                 """
                 === Modes Menu ===

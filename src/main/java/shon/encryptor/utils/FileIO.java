@@ -22,7 +22,7 @@ public class FileIO implements Read, Write {
     }
 
     @Override
-    public String read(String filepath) throws Throwable {
+    public String read(String filepath) throws IOException { // and now i dont need the try and catch, because if its fail it thorw
         try {
             return readString(Path.of(filepath));
         } catch (IOException e) {

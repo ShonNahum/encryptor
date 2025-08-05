@@ -13,9 +13,9 @@ public final class Caesar implements Cipher {
     private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
 
 
-
+// in interface i have to implement all in my code, but in absract class i dont need implement all, only what i want to 
     @Override
-    public void encrypt(String filePath) throws Throwable {
+    public void encrypt(String filePath) throws Throwable { // use generic fucntion so there is no duplicate code, and the encrypt and decrypt small changes
         final int SHIFT_RANGE = 20;
         try {
             String data = fileIO.read(filePath);

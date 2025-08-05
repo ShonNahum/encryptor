@@ -14,6 +14,7 @@ public class Multiplication implements Cipher {
     private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
     private final MathHandler mathHandler = MathHandler.getInstance();
     private final FileIO fileIO = FileIO.getInstance();
+    // use absract for all this and not duplicate all this instances.
 
     @Override
     public void encrypt(String filePath) throws Throwable {

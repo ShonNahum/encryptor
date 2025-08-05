@@ -2,7 +2,7 @@ package shon.encryptor.utils;
 
 import shon.encryptor.interfaces.Timer;
 
-public class TimerHandler implements Timer {
+public class TimerHandler implements Timer { // overkill , its the only Timer no need interface for that
     @Override
     public long start() {
         return System.nanoTime();
