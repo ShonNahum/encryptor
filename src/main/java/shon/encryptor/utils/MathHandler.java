@@ -1,19 +1,12 @@
 package shon.encryptor.utils;
 
-public class MathHandler {
-    private static final MathHandler instance = new MathHandler(); // can be static so behave like math library
+public  class MathHandler {
 
-    private MathHandler() {
-    }
 
-    public static MathHandler getInstance() {
-        return instance;
-    }
-
-    public int alwaysOdd(int number){
+    public static int alwaysOdd(int number){
         return number * 2 + 1;
     }
-    public double divideByByte(byte numerator,double denominator ){
+    public static  double divideByByte(byte numerator,double denominator ){
         return numerator / denominator;
     }
 }

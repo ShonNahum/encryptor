@@ -3,7 +3,7 @@ package shon.encryptor;
 // FUNCTION NEVER GETTING MORE THEN 3 PARAMETERS  IF ITS MORE THEN 3 MAKE OBJECT
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Throwable {
         new Encryptor().start();
 
         }

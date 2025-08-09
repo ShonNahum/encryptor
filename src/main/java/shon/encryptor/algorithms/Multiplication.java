@@ -9,10 +9,11 @@ import java.util.Random;
 
 import static shon.encryptor.enums.Modes.DECRYPT;
 import static shon.encryptor.enums.Modes.ENCRYPT;
+import static shon.encryptor.utils.MathHandler.alwaysOdd;
+import static shon.encryptor.utils.MathHandler.divideByByte;
 
 public class Multiplication implements Cipher {
     private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
-    private final MathHandler mathHandler = MathHandler.getInstance();
     private final FileIO fileIO = FileIO.getInstance();
     // use absract for all this and not duplicate all this instances.
 
@@ -21,7 +22,7 @@ public class Multiplication implements Cipher {
         final int BYTE_RANGE = 10;
         try {
             String data = fileIO.read(filePath);
-            int key = mathHandler.alwaysOdd(new Random().nextInt(BYTE_RANGE));
+            int key = alwaysOdd(new Random().nextInt(BYTE_RANGE));
             System.out.println(key);
             String encryptedData = MultiplicationLogic(data, key);
             fileIO.write(encryptedData, filePath, ENCRYPT);
@@ -38,7 +39,7 @@ public class Multiplication implements Cipher {
         try {
             System.out.println("Please enter the encryption key:");
             double encryptKeyPrompt = Integer.parseInt(consolePrompt.string());
-            double decryptKey = mathHandler.divideByByte(ONE_BYTE, encryptKeyPrompt);
+            double decryptKey = divideByByte(ONE_BYTE, encryptKeyPrompt);
             System.out.printf("the decrypt key is %s%n",decryptKey);
             String data = fileIO.read(filePath);
             String decryptedData = MultiplicationLogic(data, decryptKey);
