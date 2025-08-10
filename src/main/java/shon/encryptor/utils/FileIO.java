@@ -4,6 +4,7 @@ import shon.encryptor.enums.Modes;
 import shon.encryptor.interfaces.Read;
 import shon.encryptor.interfaces.Write;
 
+import java.io.Console;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,19 +13,19 @@ import static java.nio.file.Files.readString;
 import static shon.encryptor.enums.Modes.ENCRYPT;
 
 public class FileIO implements Read, Write {
-    private static final FileIO instance = new FileIO();
+    private final ConsolePrompt consolePrompt;
 
-    private FileIO() {
+    public FileIO(ConsolePrompt consolePrompt) {
+        this.consolePrompt = consolePrompt;
     }
 
-    public static FileIO getInstance() {
-        return instance;
-    }
 
-    public String filePathSelector(ConsolePrompt consolePrompt){
+    public String pathSelector(){
         System.out.println("Please enter filepath");
         return consolePrompt.string();
     }
+
+
     @Override
     public String read(String filepath) throws Throwable { // and now i dont need the try and catch, because if its fail it thorw
         try {

@@ -1,7 +1,23 @@
 package shon.encryptor.abstracts;
 
-public abstract class CipherProcess {
-    public void encryption(String algorithmPrompt,String filePath) throws Throwable { // all this can be abstract and in the main just call to it, and i can use the dict from the first menu to call that
+import shon.encryptor.algorithms.Caesar;
+import shon.encryptor.algorithms.Multiplication;
+import shon.encryptor.algorithms.XOR;
+
+public abstract class Cipher {
+
+    final private Caesar caesar;
+    final private XOR xor;
+    final private Multiplication multiplication;
+
+    public Cipher(Caesar caesar, XOR xor, Multiplication multiplication) {
+        this.caesar = caesar;
+        this.xor = xor;
+        this.multiplication = multiplication;
+    }
+
+
+    public void encryption(String algorithmPrompt,String filePath) {
         switch (algorithmPrompt) {
             case "CAESAR" -> caesar.encrypt(filePath);
             case "XOR" -> xor.encrypt(filePath);
@@ -11,7 +27,7 @@ public abstract class CipherProcess {
         }
     }
 
-    public void decryption(String algorithmPrompt,String filePath) throws Throwable {
+    public void decryption(String algorithmPrompt,String filePath) {
         switch (algorithmPrompt) {
             case "CAESAR" -> caesar.decrypt(filePath);
             case "XOR" -> xor.decrypt(filePath);

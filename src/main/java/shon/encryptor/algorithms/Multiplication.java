@@ -13,9 +13,6 @@ import static shon.encryptor.utils.MathHandler.alwaysOdd;
 import static shon.encryptor.utils.MathHandler.divideByByte;
 
 public class Multiplication implements Cipher {
-//    private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
-//    private final FileIO fileIO = FileIO.getInstance();
-    // use absract for all this and not duplicate all this instances.
     private final FileIO fileIO;
     private final ConsolePrompt consolePrompt;
 
