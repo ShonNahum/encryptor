@@ -2,9 +2,11 @@ package shon.encryptor.algorithms;
 
 import shon.encryptor.interfaces.Cipher;
 import shon.encryptor.utils.ConsolePrompt;
+import shon.encryptor.utils.FileException;
 import shon.encryptor.utils.FileIO;
 import shon.encryptor.utils.MathHandler;
 
+import java.io.File;
 import java.util.Random;
 
 import static shon.encryptor.enums.Modes.DECRYPT;
@@ -22,7 +24,7 @@ public class Multiplication implements Cipher {
     }
 
     @Override
-    public void encrypt(String filePath) throws Throwable {
+    public void encrypt(String filePath) {
         final int BYTE_RANGE = 10;
         try {
             String data = fileIO.read(filePath);
@@ -30,15 +32,13 @@ public class Multiplication implements Cipher {
             System.out.println(key);
             String encryptedData = MultiplicationLogic(data, key);
             fileIO.write(encryptedData, filePath, ENCRYPT);
-        }
-        catch (Throwable e)
-        {
-            throw new Throwable(e);
+        } catch (FileException e) {
+            System.out.println("Failed to encrypt using Multiplication");
         }
     }
 
     @Override
-    public void decrypt(String filePath) throws Throwable {
+    public void decrypt(String filePath) {
         final byte ONE_BYTE = 1;
         try {
             System.out.println("Please enter the encryption key:");
@@ -48,10 +48,8 @@ public class Multiplication implements Cipher {
             String data = fileIO.read(filePath);
             String decryptedData = MultiplicationLogic(data, decryptKey);
             fileIO.write(decryptedData, filePath, DECRYPT);
-        }
-        catch (Throwable e)
-        {
-            throw new Throwable(e);
+        } catch (FileException e) {
+            System.out.println("Failed to decrypt using Multiplication");
         }
     }
 

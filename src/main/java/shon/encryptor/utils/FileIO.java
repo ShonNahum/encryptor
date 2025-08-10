@@ -5,6 +5,7 @@ import shon.encryptor.interfaces.Read;
 import shon.encryptor.interfaces.Write;
 
 import java.io.Console;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,17 +28,18 @@ public class FileIO implements Read, Write {
 
 
     @Override
-    public String read(String filepath) throws Throwable { // and now i dont need the try and catch, because if its fail it thorw
+    public String read(String filepath) throws FileException {
         try {
             return readString(Path.of(filepath));
-        } catch (IOException e) {
-            throw new Throwable("Invalid file path: " + e.getMessage());
+        } catch (IOException | OutOfMemoryError | SecurityException e) {
+            throw new FileException("Error reading file at path: " + filepath, e);
         }
+
     }
 
 
     @Override
-    public void write(String data, String filepath, Modes modes) throws Throwable {
+    public void write(String data, String filepath, Modes modes) throws FileException {
         try {
             String[] fileParts = filepath.split("\\.");
             String newFilePath;
@@ -51,7 +53,7 @@ public class FileIO implements Read, Write {
             Files.writeString(Path.of(newFilePath), data);
             System.out.println(newFilePath + " Created successfully");
         } catch (Throwable e) {
-            throw new Throwable("Failed write to file: " + e.getMessage());
+            throw new FileException("Failed write to file: " + filepath,e);
         }
     }
 

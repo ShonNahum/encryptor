@@ -2,6 +2,7 @@ package shon.encryptor.algorithms;
 
 import shon.encryptor.interfaces.Cipher;
 import shon.encryptor.utils.ConsolePrompt;
+import shon.encryptor.utils.FileException;
 import shon.encryptor.utils.FileIO;
 
 import java.util.Random;
@@ -20,7 +21,7 @@ public class XOR implements Cipher {
 
 
     @Override
-    public void encrypt(String filePath) throws Throwable {
+    public void encrypt(String filePath) {
         final int BYTE_RANGE = 256;
         try {
             String data = fileIO.read(filePath);
@@ -28,15 +29,13 @@ public class XOR implements Cipher {
             System.out.println(Byte.toUnsignedInt(key));
             String encryptedData = XORLogic(data, key);
             fileIO.write(encryptedData, filePath, ENCRYPT);
-        }
-        catch (Throwable e)
-        {
-            throw new Throwable(e);
+        } catch (FileException e) {
+            System.out.println("Failed to encrypt using Caesar");
         }
     }
 
     @Override
-    public void decrypt(String filePath) throws Throwable {
+    public void decrypt(String filePath) {
         System.out.println("Please enter decryption key:");
         int decryptKey = Integer.parseInt(consolePrompt.string());
 
@@ -50,12 +49,15 @@ public class XOR implements Cipher {
             String data = fileIO.read(filePath);
             String decryptedData = XORLogic(data, byteDecryptKey);
             fileIO.write(decryptedData, filePath, DECRYPT);
-        }
-        catch (Throwable e)
-        {
-            throw new Throwable(e);
-        }
+        } catch (FileException e) {
+            System.out.println("Failed to encrypt using Caesar");
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        } catch (IllegalArgumentException e) {
+        System.out.println("Key must be between 0 and 255");
     }
+
+}
 
     private String XORLogic(String data, byte key) {
         StringBuilder newData = new StringBuilder();
