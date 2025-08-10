@@ -21,6 +21,10 @@ public class FileIO implements Read, Write {
         return instance;
     }
 
+    public String filePathSelector(ConsolePrompt consolePrompt){
+        System.out.println("Please enter filepath");
+        return consolePrompt.string();
+    }
     @Override
     public String read(String filepath) throws Throwable { // and now i dont need the try and catch, because if its fail it thorw
         try {

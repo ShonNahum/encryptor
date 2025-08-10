@@ -9,9 +9,13 @@ import static shon.encryptor.enums.Modes.ENCRYPT;
 
 public final class Caesar implements Cipher {
 
-    final FileIO fileIO = FileIO.getInstance();
-    private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
+    private final FileIO fileIO;
+    private final ConsolePrompt consolePrompt;
 
+    public Caesar(ConsolePrompt consolePrompt,FileIO fileIO){
+        this.fileIO = fileIO;
+        this.consolePrompt = consolePrompt;
+    }
 
 // in interface i have to implement all in my code, but in absract class i dont need implement all, only what i want to 
     @Override

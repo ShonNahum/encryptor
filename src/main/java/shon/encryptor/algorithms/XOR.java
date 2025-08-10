@@ -10,8 +10,13 @@ import static shon.encryptor.enums.Modes.DECRYPT;
 import static shon.encryptor.enums.Modes.ENCRYPT;
 
 public class XOR implements Cipher {
-    final FileIO fileIO = FileIO.getInstance();
-    private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
+    private final FileIO fileIO;
+    private final ConsolePrompt consolePrompt;
+
+    public XOR(ConsolePrompt consolePrompt,FileIO fileIO){
+        this.fileIO = fileIO;
+        this.consolePrompt = consolePrompt;
+    }
 
 
     @Override

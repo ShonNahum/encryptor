@@ -1,39 +1,35 @@
 package shon.encryptor;
+import shon.encryptor.abstracts.CipherProcess;
 import shon.encryptor.algorithms.Caesar;
 import shon.encryptor.algorithms.Multiplication;
 import shon.encryptor.algorithms.XOR;
-import shon.encryptor.menus.GeneralMenu;
+import shon.encryptor.menus.Menu;
 import shon.encryptor.utils.ConsolePrompt;
-
+import shon.encryptor.utils.FileIO;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class Encryptor {
-    // make it my main (global singleton) so everyone can pull from this the instances
-    // make this singleton and if everyone i want something, i can call it from this class.
     private final ConsolePrompt consolePrompt  = ConsolePrompt.getInstance();
-    private final Caesar caesar = new Caesar();
-    private final XOR xor = new XOR();
-    private final Multiplication multiplication = new Multiplication();
-    private final GeneralMenu generalMenu = new GeneralMenu(caesar,xor,multiplication);
+    private final FileIO fileIO = FileIO.getInstance();
+    private final Caesar caesar = new Caesar(consolePrompt,fileIO);
+    private final XOR xor = new XOR(consolePrompt,fileIO);
+    private final Multiplication multiplication = new Multiplication(consolePrompt,fileIO);
+    private final Menu generalMenu = new Menu(caesar,xor,multiplication);
+    private String filePath;
 
     public void start() throws Throwable {
         do {
-            String filePath = filePathSelector(consolePrompt);
-            generalMenu.start(userSelector(consolePrompt),filePath);
+            generalMenu.start(userSelector(),filePath);
         } while (true);
     }
 
-    private String filePathSelector(ConsolePrompt consolePrompt){
-        System.out.println("Please enter filepath");
-        return consolePrompt.string();
-    }
-
-    private Map<String,String> userSelector(ConsolePrompt consolePrompt) {
+    private Map<String,String> userSelector() {
         Map<String, String> userSelection = new HashMap<>();
         userSelection.put("MODE",modeSelection(consolePrompt));
         userSelection.put("ALGORITHM",algorithmSelection(consolePrompt));
+        filePath = fileIO.filePathSelector(consolePrompt);
         return userSelection;
     }
 
