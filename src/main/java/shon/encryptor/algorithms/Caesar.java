@@ -1,6 +1,6 @@
 package shon.encryptor.algorithms;
-import shon.encryptor.utils.ConsolePrompt;
-import shon.encryptor.utils.FileException;
+import shon.encryptor.utils.ConsoleInput;
+import shon.encryptor.exceptions.FileException;
 import shon.encryptor.utils.FileIO;
 import shon.encryptor.enums.Modes;
 import shon.encryptor.interfaces.Cipher;
@@ -11,15 +11,15 @@ import static shon.encryptor.enums.Modes.ENCRYPT;
 public final class Caesar implements Cipher {
 
     private final FileIO fileIO;
-    private final ConsolePrompt consolePrompt;
+    private final ConsoleInput consoleInput;
 
-    public Caesar(ConsolePrompt consolePrompt, FileIO fileIO) {
+    public Caesar(ConsoleInput consoleInput, FileIO fileIO) {
         this.fileIO = fileIO;
-        this.consolePrompt = consolePrompt;
+        this.consoleInput = consoleInput;
     }
 
     @Override
-    public void encrypt(String filePath) { // use generic fucntion so there is no duplicate code, and the encrypt and decrypt small changes
+    public void encrypt(String filePath) {
         final int SHIFT_RANGE = 20;
         try {
             String data = fileIO.read(filePath);
@@ -36,18 +36,20 @@ public final class Caesar implements Cipher {
     public void decrypt(String filePath) {
         try {
             System.out.println("Please enter decryption key:");
-            int decryptKey = Integer.parseInt(consolePrompt.string());
+            int decryptKey = Integer.parseInt(consoleInput.string());
             String data = fileIO.read(filePath);
             String decryptedData = caesarLogic(data, decryptKey, Modes.DECRYPT);
             fileIO.write(decryptedData, filePath, DECRYPT);
         } catch (FileException e) {
             System.out.println(e);
+        } catch (NumberFormatException e) {
+            System.out.println("failed to convert input" + e);
         }
     }
 
     private String caesarLogic(String data, int key, Modes modes) {
         StringBuilder newData = new StringBuilder();
-        if (modes.equals(DECRYPT)) {
+        if (DECRYPT.equals(modes)) {
             key = -key;
         }
 

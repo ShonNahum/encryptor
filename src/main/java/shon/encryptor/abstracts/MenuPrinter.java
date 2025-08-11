@@ -1,7 +1,7 @@
 package shon.encryptor.abstracts;
 import java.util.List;
 
-public abstract class ABMenu {
+public abstract class MenuPrinter {
 
     protected void printMode(List<String> options, String menuKind) {
         System.out.printf("=== %s Menu ===%n",menuKind);

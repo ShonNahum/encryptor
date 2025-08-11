@@ -1,12 +1,10 @@
 package shon.encryptor.algorithms;
 
 import shon.encryptor.interfaces.Cipher;
-import shon.encryptor.utils.ConsolePrompt;
-import shon.encryptor.utils.FileException;
+import shon.encryptor.utils.ConsoleInput;
+import shon.encryptor.exceptions.FileException;
 import shon.encryptor.utils.FileIO;
-import shon.encryptor.utils.MathHandler;
 
-import java.io.File;
 import java.util.Random;
 
 import static shon.encryptor.enums.Modes.DECRYPT;
@@ -16,11 +14,11 @@ import static shon.encryptor.utils.MathHandler.divideByByte;
 
 public class Multiplication implements Cipher {
     private final FileIO fileIO;
-    private final ConsolePrompt consolePrompt;
+    private final ConsoleInput consoleInput;
 
-    public Multiplication(ConsolePrompt consolePrompt,FileIO fileIO){
+    public Multiplication(ConsoleInput consoleInput, FileIO fileIO){
         this.fileIO = fileIO;
-        this.consolePrompt = consolePrompt;
+        this.consoleInput = consoleInput;
     }
 
     @Override
@@ -42,7 +40,7 @@ public class Multiplication implements Cipher {
         final byte ONE_BYTE = 1;
         try {
             System.out.println("Please enter the encryption key:");
-            double encryptKeyPrompt = Integer.parseInt(consolePrompt.string());
+            double encryptKeyPrompt = Integer.parseInt(consoleInput.string());
             double decryptKey = divideByByte(ONE_BYTE, encryptKeyPrompt);
             System.out.printf("the decrypt key is %s%n",decryptKey);
             String data = fileIO.read(filePath);
@@ -50,6 +48,8 @@ public class Multiplication implements Cipher {
             fileIO.write(decryptedData, filePath, DECRYPT);
         } catch (FileException e) {
             System.out.println("Failed to decrypt using Multiplication");
+        } catch (NumberFormatException e) {
+            System.out.println("failed to convert input" + e);
         }
     }
 

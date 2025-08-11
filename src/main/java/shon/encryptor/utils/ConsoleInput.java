@@ -1,15 +1,15 @@
 package shon.encryptor.utils;
 import java.util.Scanner;
 
-public final class ConsolePrompt {
-    private static final ConsolePrompt instance = new ConsolePrompt();
+public final class ConsoleInput {
+    private static final ConsoleInput instance = new ConsoleInput();
     private final Scanner prompt;
 
-    private ConsolePrompt() {
+    private ConsoleInput() {
         this.prompt = new Scanner(System.in);
     }
 
-    public static ConsolePrompt getInstance() {
+    public static ConsoleInput getInstance() {
         return instance;
     }
 

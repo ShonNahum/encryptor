@@ -1,11 +1,10 @@
 package shon.encryptor.utils;
 
 import shon.encryptor.enums.Modes;
+import shon.encryptor.exceptions.FileException;
 import shon.encryptor.interfaces.Read;
 import shon.encryptor.interfaces.Write;
 
-import java.io.Console;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,16 +13,16 @@ import static java.nio.file.Files.readString;
 import static shon.encryptor.enums.Modes.ENCRYPT;
 
 public class FileIO implements Read, Write {
-    private final ConsolePrompt consolePrompt;
+    private final ConsoleInput consoleInput;
 
-    public FileIO(ConsolePrompt consolePrompt) {
-        this.consolePrompt = consolePrompt;
+    public FileIO(ConsoleInput consoleInput) {
+        this.consoleInput = consoleInput;
     }
 
 
     public String pathSelector(){
         System.out.println("Please enter filepath");
-        return consolePrompt.string();
+        return consoleInput.string();
     }
 
 

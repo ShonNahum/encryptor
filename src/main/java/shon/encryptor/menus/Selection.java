@@ -1,19 +1,19 @@
 package shon.encryptor.menus;
 
-import shon.encryptor.abstracts.ABMenu;
-import shon.encryptor.utils.ConsolePrompt;
-import shon.encryptor.utils.SelectionException;
+import shon.encryptor.abstracts.MenuPrinter;
+import shon.encryptor.utils.ConsoleInput;
+import shon.encryptor.exceptions.SelectionException;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class Selection extends ABMenu {
-    final private ConsolePrompt consolePrompt;
+public class Selection extends MenuPrinter {
+    final private ConsoleInput consoleInput;
 
-    public Selection(ConsolePrompt consolePrompt) {
-        this.consolePrompt = consolePrompt;
+    public Selection(ConsoleInput consoleInput) {
+        this.consoleInput = consoleInput;
     }
 
     public Map<String,String> user() throws SelectionException {
@@ -22,17 +22,17 @@ public class Selection extends ABMenu {
             userSelection.put("MODE", mode());
             userSelection.put("ALGORITHM", algorithm());
         } catch (SelectionException e) {
-            throw new SelectionException("invalid");
+            throw new SelectionException("User selection error: ",e);
         }
         return userSelection;
     }
 
 
-    private String algorithm() throws SelectionException {
+    public String algorithm() throws SelectionException {
         List<String> algorithmMenu = List.of("Caesar", "XOR", "Reverse", "Multiplication");
         printMode(algorithmMenu,"Algorithm");
 
-        String algorithmInput = consolePrompt.string().toUpperCase();
+        String algorithmInput = consoleInput.string().toUpperCase();
         String algorithmSelector = switch (algorithmInput)
         {
             case "CAESAR", "XOR","REVERSE","MULTIPLICATION" -> algorithmInput;
@@ -45,7 +45,7 @@ public class Selection extends ABMenu {
         List<String> ModeMenu = List.of("Encrypt", "Decrypt", "Exit");
         printMode(ModeMenu,"Modes");
 
-        String modeInput = consolePrompt.string().toUpperCase();
+        String modeInput = consoleInput.string().toUpperCase();
         String modeSelector = switch (modeInput)
         {
             case "ENCRYPT", "DECRYPT" -> modeInput;

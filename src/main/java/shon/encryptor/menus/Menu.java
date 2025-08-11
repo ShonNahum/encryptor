@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class Menu extends Cipher {
 
-    public Menu(Caesar caesar, XOR xor, Multiplication multiplication) {
-        super(caesar,xor,multiplication);
+    public Menu(Caesar caesar, XOR xor, Multiplication multiplication,Selection selection) {
+        super(caesar,xor,multiplication,selection);
     }
 
     public void start(Map<String,String> userSelection,String filePath) {

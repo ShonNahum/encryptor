@@ -1,8 +1,8 @@
 package shon.encryptor.algorithms;
 
 import shon.encryptor.interfaces.Cipher;
-import shon.encryptor.utils.ConsolePrompt;
-import shon.encryptor.utils.FileException;
+import shon.encryptor.utils.ConsoleInput;
+import shon.encryptor.exceptions.FileException;
 import shon.encryptor.utils.FileIO;
 
 import java.util.Random;
@@ -12,11 +12,11 @@ import static shon.encryptor.enums.Modes.ENCRYPT;
 
 public class XOR implements Cipher {
     private final FileIO fileIO;
-    private final ConsolePrompt consolePrompt;
+    private final ConsoleInput consoleInput;
 
-    public XOR(ConsolePrompt consolePrompt,FileIO fileIO){
+    public XOR(ConsoleInput consoleInput, FileIO fileIO){
         this.fileIO = fileIO;
-        this.consolePrompt = consolePrompt;
+        this.consoleInput = consoleInput;
     }
 
 
@@ -37,11 +37,11 @@ public class XOR implements Cipher {
     @Override
     public void decrypt(String filePath) {
         System.out.println("Please enter decryption key:");
-        int decryptKey = Integer.parseInt(consolePrompt.string());
 
         final int MAX_BYTE = 255;
         final int MIN_BYTE = 0;
         try {
+            int decryptKey = Integer.parseInt(consoleInput.string());
             if (decryptKey < MIN_BYTE || decryptKey > MAX_BYTE)
                 throw new IllegalArgumentException("Key must be between 0 and 255");
 
@@ -50,7 +50,7 @@ public class XOR implements Cipher {
             String decryptedData = XORLogic(data, byteDecryptKey);
             fileIO.write(decryptedData, filePath, DECRYPT);
         } catch (FileException e) {
-            System.out.println("Failed to encrypt using Caesar");
+            System.out.println("Failed to read file: " + e);
         } catch (NumberFormatException e) {
             System.out.println(e);
         } catch (IllegalArgumentException e) {
