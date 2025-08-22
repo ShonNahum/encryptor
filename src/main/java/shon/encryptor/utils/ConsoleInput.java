@@ -16,8 +16,4 @@ public final class ConsoleInput {
     public String string() {
         return prompt.nextLine();
     }
-
-
-
-
 }

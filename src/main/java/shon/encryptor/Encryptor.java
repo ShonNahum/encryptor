@@ -2,37 +2,40 @@ package shon.encryptor;
 import shon.encryptor.abstracts.MenuPrinter;
 import shon.encryptor.algorithms.Caesar;
 import shon.encryptor.algorithms.Multiplication;
+import shon.encryptor.algorithms.Reverse;
 import shon.encryptor.algorithms.XOR;
-import shon.encryptor.menus.Menu;
-import shon.encryptor.menus.Selection;
-import shon.encryptor.utils.ConsoleInput;
-import shon.encryptor.utils.FileIO;
+import shon.encryptor.exceptions.FileException;
 import shon.encryptor.exceptions.SelectionException;
+import shon.encryptor.menus.CipherHandler;
+import shon.encryptor.menus.inputHandler;
 
-// fix all exception to print them good! with %n
+import shon.encryptor.utils.FileHandler;
+
+import java.util.Map;
+
 
 public class Encryptor extends MenuPrinter {
-    private final ConsoleInput consoleInput = ConsoleInput.getInstance();
-    private final FileIO fileIO = new FileIO(consoleInput);
-    private final Selection selection = new Selection(consoleInput);
-    private final Caesar caesar = new Caesar(consoleInput,fileIO);
-    private final XOR xor = new XOR(consoleInput,fileIO);
-    private final Multiplication multiplication = new Multiplication(consoleInput,fileIO);
-    private final Menu menu = new Menu(caesar,xor,multiplication,selection);
-
+    private final FileHandler fileHandler = new FileHandler();
+    private final inputHandler inputHandler = new inputHandler();
+    private final Caesar caesar = new Caesar();
+    private final XOR xor = new XOR();
+    private final Reverse reverse = new Reverse();
+    private final Multiplication multiplication = new Multiplication();
+    private final CipherHandler cipherHandler = new CipherHandler(caesar, xor, multiplication, reverse);
 
 
     public void start() {
         do {
+            Map<String, String> userSelection;
             try {
-                menu.start(selection.user(), fileIO.pathSelector());
-            }
-            catch (SelectionException e) {
-                System.out.printf("Restarting encryptor ERROR %s",e);
+                userSelection = inputHandler.userSelections();
+                String filepath = userSelection.get("FILE_PATH");
+                String beforeData = fileHandler.read(filepath);
+                String newData = cipherHandler.dataProcessor(userSelection, beforeData);
+                fileHandler.write(newData, filepath, userSelection.get("MODE"));
+            } catch (SelectionException | FileException e) {
+                System.out.println(e);
             }
         } while (true);
     }
-
-
-
 }
