@@ -5,7 +5,7 @@ import java.util.Random;
 import static shon.encryptor.enums.Modes.DECRYPT;
 import static shon.encryptor.enums.Modes.ENCRYPT;
 
-public final class Caesar implements Cipher {
+public final class Caesar implements Cipher{
 
     @Override
     public String encrypt(String beforeData) {

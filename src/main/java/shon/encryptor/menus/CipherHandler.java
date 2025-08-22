@@ -4,6 +4,7 @@ import shon.encryptor.algorithms.Multiplication;
 import shon.encryptor.algorithms.Reverse;
 import shon.encryptor.algorithms.XOR;
 import shon.encryptor.interfaces.Cipher;
+import shon.encryptor.utils.TimerHandler;
 
 
 import java.util.Map;
@@ -20,7 +21,6 @@ public class CipherHandler {
         this.xor = xor;
         this.multiplication = multiplication;
         this.reverse = reverse;
-
     }
 
     public String dataProcessor(Map<String,String> userSelection, String beforeData) {
@@ -35,12 +35,15 @@ public class CipherHandler {
         if (null == algorithmSelection) {
             throw new IllegalArgumentException("Invalid algorithm: " + userSelection.get("ALGORITHM"));
         }
-        return switch (modeSelection) {
+        long startTimer = TimerHandler.start();
+        String newData = switch (modeSelection) {
             case "ENCRYPT" -> algorithmSelection.encrypt(beforeData);
-            case "DECRYPT" ->
-                    algorithmSelection.decrypt(beforeData, Integer.parseInt(userSelection.get("DECRYPT_KEY")));
+            case "DECRYPT" -> algorithmSelection.decrypt(beforeData, Integer.parseInt(userSelection.get("DECRYPT_KEY")));
             default -> throw new IllegalArgumentException("Invalid mode: " + modeSelection);
         };
+        long stopTimer = TimerHandler.stop();
+        TimerHandler.getDurationMillis(startTimer,stopTimer);
+        return newData;
 
     }
 }
