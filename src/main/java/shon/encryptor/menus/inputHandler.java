@@ -10,7 +10,7 @@ import static java.lang.System.exit;
 
 public class inputHandler extends MenuPrinter {
     private final Scanner input = new Scanner(System.in);
-    private final Map<String, String> userSelection = new HashMap<>();
+    private final  Map<String, String> userSelection = new HashMap<>();
 
 
     public Map<String,String> userSelections() throws SelectionException {
@@ -19,18 +19,31 @@ public class inputHandler extends MenuPrinter {
             userSelection.put("FILE_PATH",fileSelection());
             userSelection.put("ALGORITHM", algorithmSelection());
 
-            if ("DECRYPT".equals(userSelection.get("MODE"))){
-                userSelection.put("DECRYPT_KEY",decryptKeySelection());
-                int NumberValidation = Integer.parseInt(userSelection.get("DECRYPT_KEY"));
+            if ("REVERSE".equals(userSelection.get("ALGORITHM"))){
+                userSelection.put("ALGORITHM", algorithmSelection());
+                if ("ENCRYPT".equals(userSelection.get("MODE"))) {
+                    userSelection.put("MODE","DECRYPT");
+                } else {
+                    userSelection.put("MODE","ENCRYPT");
+                }
             }
+            DecryptValidation(userSelection);
+
         } catch (SelectionException | NumberFormatException e ) {
             System.out.println(e);
             throw new SelectionException(e.getMessage());
         }
         return userSelection;
     }
+    public Map<String,String> DecryptValidation(Map<String,String> userSelection) throws SelectionException {
+        if ("DECRYPT".equals(userSelection.get("MODE"))){
+            userSelection.put("DECRYPT_KEY",decryptKeySelection());
+            int NumberValidation = Integer.parseInt(userSelection.get("DECRYPT_KEY"));
+        }
+        return userSelection;
+    }
 
-    private String modeSelection() throws SelectionException {
+    public String modeSelection() throws SelectionException {
         List<String> ModeMenu = List.of("Encrypt", "Decrypt", "Exit");
         printMode(ModeMenu, "Modes");
         try {

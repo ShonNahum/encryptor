@@ -2,7 +2,6 @@ package shon.encryptor;
 import shon.encryptor.abstracts.MenuPrinter;
 import shon.encryptor.algorithms.Caesar;
 import shon.encryptor.algorithms.Multiplication;
-import shon.encryptor.algorithms.Reverse;
 import shon.encryptor.algorithms.XOR;
 import shon.encryptor.exceptions.FileException;
 import shon.encryptor.exceptions.SelectionException;
@@ -19,9 +18,8 @@ public class Encryptor extends MenuPrinter {
     private final inputHandler inputHandler = new inputHandler();
     private final Caesar caesar = new Caesar();
     private final XOR xor = new XOR();
-    private final Reverse reverse = new Reverse();
     private final Multiplication multiplication = new Multiplication();
-    private final CipherHandler cipherHandler = new CipherHandler(caesar, xor, multiplication, reverse);
+    private final CipherHandler cipherHandler = new CipherHandler(caesar, xor, multiplication);
 
 
     public void start() {

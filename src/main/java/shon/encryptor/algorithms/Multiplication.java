@@ -15,17 +15,17 @@ public class Multiplication implements Cipher {
     public String encrypt(String beforeData) {
         final int BYTE_RANGE = 10;
         int key = alwaysOdd(new Random().nextInt(BYTE_RANGE));
-        System.out.println(key);
-        return MultiplicationLogic(beforeData, key,ENCRYPT);
+        System.out.printf("the key is %d", key);
+        return MultiplicationLogic(beforeData, key);
     }
 
     @Override
     public String decrypt(String beforeData,int decryptKey) {
-        return MultiplicationLogic(beforeData, decryptKey,DECRYPT);
+        return MultiplicationLogic(beforeData, decryptKey);
     }
 
 
-    private String MultiplicationLogic(String beforeData, int key, Modes modes) {
+    private String MultiplicationLogic(String beforeData, int key) {
         StringBuilder newData = new StringBuilder();
         for (char ch : beforeData.toCharArray()) {
             newData.append((char)(ch * key));

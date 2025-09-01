@@ -1,8 +1,8 @@
 package shon.encryptor.menus;
 import shon.encryptor.algorithms.Caesar;
 import shon.encryptor.algorithms.Multiplication;
-import shon.encryptor.algorithms.Reverse;
 import shon.encryptor.algorithms.XOR;
+import shon.encryptor.exceptions.SelectionException;
 import shon.encryptor.interfaces.Cipher;
 import shon.encryptor.utils.TimerHandler;
 
@@ -13,21 +13,18 @@ public class CipherHandler {
     final private Caesar caesar;
     final private XOR xor;
     final private Multiplication multiplication;
-    final private Reverse reverse;
 
 
-    public CipherHandler(Caesar caesar, XOR xor, Multiplication multiplication, Reverse reverse) {
+    public CipherHandler(Caesar caesar, XOR xor, Multiplication multiplication) {
         this.caesar = caesar;
         this.xor = xor;
         this.multiplication = multiplication;
-        this.reverse = reverse;
     }
 
-    public String dataProcessor(Map<String,String> userSelection, String beforeData) {
+    public String dataProcessor(Map<String,String> userSelection, String beforeData) throws SelectionException {
         final Map<String, Cipher> algorithms = Map.of(
                 "CAESAR", caesar,
                 "XOR", xor,
-                "REVERSE", reverse,
                 "MULTIPLICATION", multiplication
         );
         String modeSelection = userSelection.get("MODE");

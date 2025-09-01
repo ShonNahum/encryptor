@@ -11,7 +11,7 @@ public final class Caesar implements Cipher{
     public String encrypt(String beforeData) {
         final int SHIFT_RANGE = 20;
         int shiftKey = new Random().nextInt(SHIFT_RANGE);
-        System.out.println(shiftKey);
+        System.out.printf("the shift key is %d" ,shiftKey);
         return caesarLogic(beforeData, shiftKey, ENCRYPT);
     }
 

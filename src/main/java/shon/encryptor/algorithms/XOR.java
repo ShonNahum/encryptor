@@ -11,16 +11,16 @@ public class XOR implements Cipher {
     public String encrypt(String beforeData) {
         final int BYTE_RANGE = 256;
         byte key = (byte) new Random().nextInt(BYTE_RANGE);
-        System.out.println(Byte.toUnsignedInt(key));
+        System.out.printf("the key is %d" ,key);
         return XORLogic(beforeData, key);
     }
 
     @Override
     public String decrypt(String beforeData, int decrptKey) {
-        return XORLogic(beforeData, decrptKey);
+        return XORLogic(beforeData, (byte) decrptKey);
     }
 
-    private String XORLogic(String beforeData, int key) {
+    private String XORLogic(String beforeData, byte key) {
         StringBuilder newData = new StringBuilder();
         for (char ch : beforeData.toCharArray()) {
             newData.append((char) (ch ^ key));
