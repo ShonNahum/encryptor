@@ -61,7 +61,15 @@ public class inputHandler extends MenuPrinter {
         }
     }
 
+    public int decryptKeySelection() throws SelectionException {
+        try {
+            System.out.println("Enter decryption key");
+            return Integer.parseInt(input.nextLine());
+        } catch (NoSuchElementException | IllegalStateException e){
+            throw new SelectionException("Failed to read decryption key",e);
 
+        }
+    }
 
 
     private String fileSelection() throws SelectionException {

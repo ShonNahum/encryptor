@@ -5,11 +5,7 @@ import shon.encryptor.algorithms.XOR;
 import shon.encryptor.exceptions.SelectionException;
 import shon.encryptor.interfaces.Cipher;
 import shon.encryptor.utils.TimerHandler;
-
-
 import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class CipherHandler {
     final private Caesar caesar;
@@ -34,9 +30,9 @@ public class CipherHandler {
                 userSelection.put("MODE","ENCRYPT");
             }
         }
+
         if ("DECRYPT".equals(userSelection.get("MODE"))){
-            userSelection.put("DECRYPT_KEY",decryptKeySelection());
-            int NumberValidation = Integer.parseInt(userSelection.get("DECRYPT_KEY"));
+            userSelection.put("DECRYPT_KEY", String.valueOf(inputhandler.decryptKeySelection()));
         }
         final Map<String, Cipher> algorithms = Map.of(
                 "CAESAR", caesar,
@@ -60,14 +56,6 @@ public class CipherHandler {
         return newData;
 
     }
-    private String decryptKeySelection() throws SelectionException {
-        try {
-            System.out.println("Enter decryption key");
-            return new Scanner(System.in).nextLine();
-        } catch (NoSuchElementException | IllegalStateException e){
-            throw new SelectionException("Failed to read decryption key",e);
 
-        }
-    }
 }
 
