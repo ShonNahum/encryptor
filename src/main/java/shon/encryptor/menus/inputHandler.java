@@ -19,26 +19,9 @@ public class inputHandler extends MenuPrinter {
             userSelection.put("FILE_PATH",fileSelection());
             userSelection.put("ALGORITHM", algorithmSelection());
 
-            if ("REVERSE".equals(userSelection.get("ALGORITHM"))){
-                userSelection.put("ALGORITHM", algorithmSelection());
-                if ("ENCRYPT".equals(userSelection.get("MODE"))) {
-                    userSelection.put("MODE","DECRYPT");
-                } else {
-                    userSelection.put("MODE","ENCRYPT");
-                }
-            }
-            DecryptValidation(userSelection);
-
-        } catch (SelectionException | NumberFormatException e ) {
+        } catch (SelectionException  e ) {
             System.out.println(e);
             throw new SelectionException(e.getMessage());
-        }
-        return userSelection;
-    }
-    public Map<String,String> DecryptValidation(Map<String,String> userSelection) throws SelectionException {
-        if ("DECRYPT".equals(userSelection.get("MODE"))){
-            userSelection.put("DECRYPT_KEY",decryptKeySelection());
-            int NumberValidation = Integer.parseInt(userSelection.get("DECRYPT_KEY"));
         }
         return userSelection;
     }
@@ -79,15 +62,7 @@ public class inputHandler extends MenuPrinter {
     }
 
 
-    private String decryptKeySelection() throws SelectionException {
-        try {
-            System.out.println("Enter decryption key");
-            return input.nextLine();
-        } catch (NoSuchElementException | IllegalStateException e){
-            throw new SelectionException("Failed to read decryption key",e);
 
-        }
-    }
 
     private String fileSelection() throws SelectionException {
         try {

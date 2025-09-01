@@ -15,18 +15,18 @@ import java.util.Map;
 
 public class Encryptor extends MenuPrinter {
     private final FileHandler fileHandler = new FileHandler();
-    private final inputHandler inputHandler = new inputHandler();
+    private final inputHandler inputhandler = new inputHandler();
     private final Caesar caesar = new Caesar();
     private final XOR xor = new XOR();
     private final Multiplication multiplication = new Multiplication();
-    private final CipherHandler cipherHandler = new CipherHandler(caesar, xor, multiplication);
+    private final CipherHandler cipherHandler = new CipherHandler(caesar, xor, multiplication,inputhandler);
 
 
     public void start() {
         do {
             Map<String, String> userSelection;
             try {
-                userSelection = inputHandler.userSelections();
+                userSelection = inputhandler.userSelections();
                 String filepath = userSelection.get("FILE_PATH");
                 String beforeData = fileHandler.read(filepath);
                 String newData = cipherHandler.dataProcessor(userSelection, beforeData);
