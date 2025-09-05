@@ -8,6 +8,7 @@ import shon.encryptor.interfaces.Write;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.regex.PatternSyntaxException;
 
 import static java.nio.file.Files.readString;
 
@@ -40,14 +41,14 @@ public class FileHandler implements Read, Write {
             }
 
             Files.writeString(Path.of(newFilePath), data);
-            System.out.println(newFilePath + " Created successfully");
+            System.out.println(newFilePath + " Created sucgcessfully");
         } catch (Throwable e) {
-            throw new FileException("Failed write to file: " + filepath,e);
+            System.out.println(e.getMessage());
         }
     }
 
     @Override
-    public void write(String data, String filepath, String mode) throws FileException {
+    public void void(String data, String filepath, String mode) throws FileException {
         return validateFileWriter(data,filepath,mode);
     }
 
