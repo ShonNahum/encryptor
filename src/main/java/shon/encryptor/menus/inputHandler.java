@@ -1,67 +1,45 @@
 package shon.encryptor.menus;
 
-import shon.encryptor.abstracts.MenuPrinter;
 import shon.encryptor.exceptions.SelectionException;
 
 import java.util.*;
 
-import static java.lang.System.exit;
 
 
-public class inputHandler extends MenuPrinter {
+public class inputHandler extends InputValidation  {
     private final Scanner input = new Scanner(System.in);
-    private final  Map<String, String> userSelection = new HashMap<>();
 
 
-    public Map<String,String> userSelections() throws SelectionException {
-        try {
-            userSelection.put("MODE", modeSelection());
-            userSelection.put("FILE_PATH",fileSelection());
-            userSelection.put("ALGORITHM", algorithmSelection());
-
-        } catch (SelectionException  e ) {
-            System.out.println(e);
-            throw new SelectionException(e.getMessage());
-        }
-        return userSelection;
+    public String modeInput() throws SelectionException {
+        String mode = switch (input.nextLine().toUpperCase()) {
+            case "ENCRYPT" -> "ENCRYPT";
+            case "DECRYPT" -> "DECRYPT";
+            case "EXIT" -> "EXIT";
+            default -> throw new SelectionException("Invalid mode Input");
+        };
+        return mode;
     }
 
-    public String modeSelection() throws SelectionException {
-        List<String> ModeMenu = List.of("Encrypt", "Decrypt", "Exit");
-        printMode(ModeMenu, "Modes");
-        try {
-            String modeInput = input.nextLine().toUpperCase();
-            String modeSelector = switch (modeInput) {
-                case "ENCRYPT", "DECRYPT" -> modeInput;
-                case "EXIT" -> {
-                    exit(0);
-                    yield "";
-                }
-                default -> throw new SelectionException("Invalid mode input");
 
-            };
-            return modeSelector;
-        } catch (NoSuchElementException | IllegalStateException | SelectionException e) {
-            throw new SelectionException(e.getMessage());
-    }
+
+    public String algorithmInput() throws SelectionException {
+        String algorithm = switch (input.nextLine().toUpperCase()) {
+            case "CAESAR" -> "CAESAR";
+            case "XOR" -> "XOR";
+            case "REVERSE" -> "REVERSE";
+            case "MULTIPLICATION" -> "MULTIPLICATION";
+            default -> throw new SelectionException("Invalid algorithm input");
+        };
+        return algorithm;
     }
 
-    public String algorithmSelection() throws SelectionException {
-        List<String> algorithmMenu = List.of("Caesar", "XOR", "Reverse", "Multiplication");
-        printMode(algorithmMenu,"Algorithm");
-        try {
-            String algorithmInput = input.nextLine().toUpperCase();
-            String algorithmSelector = switch (algorithmInput) {
-                case "CAESAR", "XOR", "REVERSE", "MULTIPLICATION" -> algorithmInput;
-                default -> throw new SelectionException("Invalid algorithm input");
-            };
-            return algorithmSelector;
-        } catch (NoSuchElementException | IllegalStateException | SelectionException e) {
-            throw new SelectionException(e.getMessage());
-        }
+
+    public String filePathInput()  {
+        return input.nextLine();
     }
 
-    public int decryptKeySelection() throws SelectionException {
+
+    public int decryptKeyInput() throws SelectionException {
         try {
             System.out.println("Enter decryption key");
             return Integer.parseInt(input.nextLine());
@@ -71,13 +49,4 @@ public class inputHandler extends MenuPrinter {
         }
     }
 
-
-    private String fileSelection() throws SelectionException {
-        try {
-            System.out.println("Please enter filepath");
-            return input.nextLine();
-        } catch (NoSuchElementException | IllegalStateException e){
-            throw new SelectionException("Failed to read file path", e);
-        }
-    }
 }

@@ -13,19 +13,22 @@ import static java.nio.file.Files.readString;
 
 public class FileHandler implements Read, Write {
 
-    @Override
-    public String read(String filepath) throws FileException {
+    public String validateFileReader(String filepath) {
         try {
             return readString(Path.of(filepath));
         } catch (IOException | OutOfMemoryError | SecurityException e) {
             System.out.println(e);
-            throw new FileException("failed to read the file path",e);
+            return null;
         }
     }
 
-
     @Override
-    public void write(String data, String filepath, String mode) throws FileException {
+    public String read(String filepath) {
+        return validateFileReader(filepath);
+    }
+
+
+    public void validateFileWriter(String data, String filepath, String mode) {
         try {
             String[] fileParts = filepath.split("\\.");
             String newFilePath;
@@ -41,6 +44,11 @@ public class FileHandler implements Read, Write {
         } catch (Throwable e) {
             throw new FileException("Failed write to file: " + filepath,e);
         }
+    }
+
+    @Override
+    public void write(String data, String filepath, String mode) throws FileException {
+        return validateFileWriter(data,filepath,mode);
     }
 
 }
