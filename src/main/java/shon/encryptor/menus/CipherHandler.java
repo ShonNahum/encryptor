@@ -11,44 +11,45 @@ public class CipherHandler {
     final private Caesar caesar;
     final private XOR xor;
     final private Multiplication multiplication;
-    final private inputHandler inputhandler;
+    final private Selection selection;
+    final private InputHandler inputHandler;
 
-
-    public CipherHandler(Caesar caesar, XOR xor, Multiplication multiplication, inputHandler inputhandler) {
+    public CipherHandler(Caesar caesar, XOR xor, Multiplication multiplication, Selection selection,InputHandler inputHandler) {
         this.caesar = caesar;
         this.xor = xor;
         this.multiplication = multiplication;
-        this.inputhandler = inputhandler;
+        this.selection = selection;
+        this.inputHandler = inputHandler;
     }
 
-    public String dataProcessor(Map<String,String> userSelection, String beforeData) throws SelectionException {
+    public String dataProcessor(Map<String,String> userSelection, String beforeData) {
+        // Handle Reverse Algorithm
         if ("REVERSE".equals(userSelection.get("ALGORITHM"))){
-            userSelection.put("ALGORITHM", inputhandler.algorithmSelection());
+            userSelection.put("ALGORITHM", selection.getAlgorithm());
             if ("ENCRYPT".equals(userSelection.get("MODE"))) {
                 userSelection.put("MODE","DECRYPT");
             } else {
                 userSelection.put("MODE","ENCRYPT");
             }
         }
+        String modeSelection = userSelection.get("MODE");
 
-        if ("DECRYPT".equals(userSelection.get("MODE"))){
-            userSelection.put("DECRYPT_KEY", String.valueOf(inputhandler.decryptKeySelection()));
+
+        if ("DECRYPT".equals(modeSelection)){
+            userSelection.put("DECRYPT_KEY", selection.getDecryptKey());
         }
         final Map<String, Cipher> algorithms = Map.of(
                 "CAESAR", caesar,
                 "XOR", xor,
                 "MULTIPLICATION", multiplication
         );
-
-        String modeSelection = userSelection.get("MODE");
         Cipher algorithmSelection = algorithms.get(userSelection.get("ALGORITHM"));
-        if (null == algorithmSelection) {
-            throw new IllegalArgumentException("Invalid algorithm: " + userSelection.get("ALGORITHM"));
-        }
+
+
         long startTimer = TimerHandler.start();
         String newData = switch (modeSelection) {
             case "ENCRYPT" -> algorithmSelection.encrypt(beforeData);
-            case "DECRYPT" -> algorithmSelection.decrypt(beforeData, Integer.parseInt(userSelection.get("DECRYPT_KEY")));
+            case "DECRYPT" -> algorithmSelection.decrypt(beforeData, userSelection.get("DECRYPT_KEY")));
             default -> throw new IllegalArgumentException("Invalid mode: " + modeSelection);
         };
         long stopTimer = TimerHandler.stop();

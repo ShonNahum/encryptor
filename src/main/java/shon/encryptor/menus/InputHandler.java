@@ -6,7 +6,7 @@ import java.util.*;
 
 
 
-public class inputHandler extends InputValidation  {
+public class InputHandler {
     private final Scanner input = new Scanner(System.in);
 
 
@@ -34,19 +34,10 @@ public class inputHandler extends InputValidation  {
     }
 
 
-    public String filePathInput()  {
+    public String StringInput()  {
         return input.nextLine();
     }
 
 
-    public int decryptKeyInput() throws SelectionException {
-        try {
-            System.out.println("Enter decryption key");
-            return Integer.parseInt(input.nextLine());
-        } catch (NoSuchElementException | IllegalStateException e){
-            throw new SelectionException("Failed to read decryption key",e);
-
-        }
-    }
 
 }

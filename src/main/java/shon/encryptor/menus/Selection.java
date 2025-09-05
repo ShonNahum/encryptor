@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 
-public class UserSelection extends MenuPrinter {
+public class Selection extends MenuPrinter {
     private final  Map<String, String> userSelection = new HashMap<>();
-    final private inputHandler inputhandler;
+    final private InputHandler inputhandler;
 
 
-    public UserSelection(inputHandler inputhandler) {
+    public Selection(InputHandler inputhandler) {
         this.inputhandler = inputhandler;
     }
 
@@ -52,10 +52,15 @@ public class UserSelection extends MenuPrinter {
         }
     }
 
+    public String getDecryptKey() {
+        System.out.printf("=== %s Please Enter Decrypt Key ===%n");
+        return inputhandler.StringInput();
+    }
+
     public String getFilePath() {
         System.out.printf("=== %s Please Enter File Path ===%n");
         try {
-            String filePath = inputhandler.filePathInput();
+            String filePath = inputhandler.StringInput();
             return filePath;
         } catch (NoSuchElementException | IllegalStateException e){
             System.out.println(e.getMessage());

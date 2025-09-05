@@ -48,8 +48,8 @@ public class FileHandler implements Read, Write {
     }
 
     @Override
-    public void void(String data, String filepath, String mode) throws FileException {
-        return validateFileWriter(data,filepath,mode);
+    public void write(String data, String filepath, String mode) {
+        validateFileWriter(data,filepath,mode);
     }
 
 }
