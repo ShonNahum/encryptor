@@ -30,7 +30,7 @@ public class CipherHandler {
         );
 
         // Handle Reverse Algorithm
-        if ("REVERSE".equals(algorithm)){
+        if (Constants.REVERSE.equals(algorithm)){
              algorithm = selection.setAlgorithm();
             if (Constants.ENCRYPT.equals(modeSelection)) {
                 modeSelection = Constants.DECRYPT;

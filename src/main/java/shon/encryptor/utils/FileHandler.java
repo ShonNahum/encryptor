@@ -36,7 +36,7 @@ public class FileHandler implements Read, Write {
             }
 
             Files.writeString(Path.of(newFilePath), data);
-            System.out.println(newFilePath + " Created sucgcessfully");
+            System.out.println(newFilePath + " Created successfully");
         } catch (Throwable e) {
             throw new FileException("Cannot write to file " + e.getMessage());
         }
