@@ -1,6 +1,5 @@
 package shon.encryptor.utils;
 
-import shon.encryptor.enums.Modes;
 import shon.encryptor.exceptions.FileException;
 import shon.encryptor.interfaces.Read;
 import shon.encryptor.interfaces.Write;
@@ -8,28 +7,24 @@ import shon.encryptor.interfaces.Write;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.regex.PatternSyntaxException;
 
 import static java.nio.file.Files.readString;
 
 public class FileHandler implements Read, Write {
 
-    public String validateFileReader(String filepath) {
+
+    @Override
+    public String read(String filepath) throws FileException {
         try {
             return readString(Path.of(filepath));
         } catch (IOException | OutOfMemoryError | SecurityException e) {
-            System.out.println(e);
-            return null;
+            throw new FileException("Cannot read file " + e.getMessage());
         }
     }
 
+
     @Override
-    public String read(String filepath) {
-        return validateFileReader(filepath);
-    }
-
-
-    public void validateFileWriter(String data, String filepath, String mode) {
+    public void write(String data, String filepath, String mode) throws FileException {
         try {
             String[] fileParts = filepath.split("\\.");
             String newFilePath;
@@ -43,13 +38,7 @@ public class FileHandler implements Read, Write {
             Files.writeString(Path.of(newFilePath), data);
             System.out.println(newFilePath + " Created sucgcessfully");
         } catch (Throwable e) {
-            System.out.println(e.getMessage());
+            throw new FileException("Cannot write to file " + e.getMessage());
         }
     }
-
-    @Override
-    public void write(String data, String filepath, String mode) {
-        validateFileWriter(data,filepath,mode);
-    }
-
 }

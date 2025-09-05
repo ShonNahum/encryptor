@@ -11,13 +11,11 @@ public class InputHandler {
 
 
     public String modeInput() throws SelectionException {
-        String mode = switch (input.nextLine().toUpperCase()) {
-            case "ENCRYPT" -> "ENCRYPT";
-            case "DECRYPT" -> "DECRYPT";
-            case "EXIT" -> "EXIT";
-            default -> throw new SelectionException("Invalid mode Input");
+        String inputValue = input.nextLine().toUpperCase();
+        return switch (inputValue) {
+            case "ENCRYPT", "DECRYPT", "EXIT" -> inputValue;
+            default -> throw new SelectionException("Invalid mode input: " + inputValue);
         };
-        return mode;
     }
 
 

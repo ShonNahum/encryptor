@@ -1,12 +1,15 @@
 package shon.encryptor.utils;
 
-public  class MathHandler {
+import java.util.Random;
+
+public class MathHandler {
 
 
-    public static int alwaysOdd(int number){
-        if (number % 2 == 0){
-            return number + 1;
-        }
+    public static int alwaysOdd(int range){
+        int number;
+        do {
+            number = new Random().nextInt(range);
+        } while (number % 2 != 0);
         return number;
     }
     public static double divideByByte(byte numerator,double denominator ){
