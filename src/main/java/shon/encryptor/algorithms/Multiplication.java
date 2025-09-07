@@ -1,39 +1,38 @@
 package shon.encryptor.algorithms;
 
+import shon.encryptor.exceptions.CipherException;
 import shon.encryptor.interfaces.Cipher;
-import shon.encryptor.menus.Constants;
 import shon.encryptor.utils.ConvertHandler;
 
 
-import static shon.encryptor.utils.MathHandler.alwaysOdd;
+import static shon.encryptor.utils.MathHandler.generateOddKey;
 
 public class Multiplication implements Cipher {
 
     @Override
-    public String encrypt(String beforeData) {
-        final int BYTE_RANGE = 10;
-        int key = alwaysOdd(BYTE_RANGE);
-        System.out.printf("the key is %d", key);
-        return MultiplicationLogic(beforeData, key);
+    public String encrypt(String data) {
+        int BYTE_RANGE = 256;
+        int key = generateOddKey(BYTE_RANGE);
+        System.out.printf("%nthe key is %d%n", key);
+        return MultiplicationLogic(data, key);
     }
 
     @Override
-    public String decrypt(String beforeData,String decryptKey) {
+    public String decrypt(String data,String decryptKey) throws CipherException {
         try {
             int key = ConvertHandler.StringToInt(decryptKey);
-            return MultiplicationLogic(beforeData,key);
+            return MultiplicationLogic(data,key);
         } catch (NumberFormatException e) {
-            System.out.println("Invalid number: " + e);
-            return null;
+            throw new CipherException("Invalid decrypt key: " + e.getMessage());
         }
     }
 
 
-    private String MultiplicationLogic(String beforeData, int key) {
-        StringBuilder newData = new StringBuilder();
-        for (char ch : beforeData.toCharArray()) {
-            newData.append((char)(ch * key));
+    private String MultiplicationLogic(String data, int key) {
+        StringBuilder result = new StringBuilder();
+        for (char ch : data.toCharArray()) {
+            result.append((char)(ch * key));
         }
-        return newData.toString();
+        return result.toString();
     }
 }

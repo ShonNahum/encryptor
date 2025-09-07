@@ -1,49 +1,68 @@
 package shon.encryptor;
-import shon.encryptor.abstracts.MenuPrinter;
 import shon.encryptor.algorithms.Caesar;
 import shon.encryptor.algorithms.Multiplication;
 import shon.encryptor.algorithms.XOR;
+import shon.encryptor.exceptions.CipherException;
 import shon.encryptor.exceptions.FileException;
 import shon.encryptor.exceptions.SelectionException;
-import shon.encryptor.interfaces.Cipher;
-import shon.encryptor.menus.CipherHandler;
-import shon.encryptor.menus.Constants;
-import shon.encryptor.menus.Selection;
-import shon.encryptor.menus.InputHandler;
+import shon.encryptor.utils.CipherHandler;
+import shon.encryptor.utils.Constants;
+import shon.encryptor.menus.UserSelection;
+import shon.encryptor.utils.InputHandler;
 
 import shon.encryptor.utils.FileHandler;
 
-import java.util.Map;
 
-
-
-public class Encryptor extends MenuPrinter {
+public class Encryptor {
     private final FileHandler fileHandler = new FileHandler();
-    private final InputHandler inputhandler = new InputHandler();
+    private final InputHandler inputHandler = new InputHandler();
     private final Caesar caesar = new Caesar();
     private final XOR xor = new XOR();
     private final Multiplication multiplication = new Multiplication();
-    private final Selection selection = new Selection(inputhandler);
-    private final CipherHandler cipherHandler = new CipherHandler(caesar, xor, multiplication, selection);
+    private final UserSelection userSelection = new UserSelection(inputHandler);
+    private final CipherHandler cipherHandler = new CipherHandler(caesar, xor, multiplication);
 
-
-    public void start() {
+    public void run() {
         do {
-            try {
-                final Map<String, String> userSelection = Map.of(
-                        Constants.KEY_MODE, selection.setMode(),
-                        Constants.KEY_ALGORITHM, selection.setAlgorithm(),
-                        Constants.KEY_FILE_PATH, selection.setFilePath()
-                );
-                String beforeData = fileHandler.read(userSelection.get(Constants.KEY_FILE_PATH));
-                String newData = cipherHandler.dataProcessor(userSelection.get(Constants.KEY_MODE),userSelection.get(Constants.KEY_ALGORITHM), beforeData);
-                if (null == newData){
-                    continue;
+            try  {
+                String decryptKey = null;
+
+                String mode = userSelection.chooseMode();
+                if (Constants.EXIT.equals(mode)) {
+                    System.out.println("Exiting Encryptor :(");
+                    break;
                 }
-                fileHandler.write(newData, userSelection.get(Constants.KEY_FILE_PATH),userSelection.get(Constants.KEY_MODE));
+
+                String algorithm = userSelection.chooseAlgorithm();
+
+                //Handle Reverse
+                if (Constants.REVERSE.equals(algorithm)){
+                     algorithm = userSelection.chooseAlgorithm();
+                    if (Constants.ENCRYPT.equals(mode)) {
+                        mode = Constants.DECRYPT;
+                    } else {
+                        mode = Constants.ENCRYPT;
+                    }
+                }
+
+                String filePath = userSelection.chooseFilePath();
+
+                if (Constants.DECRYPT.equals(mode)) {
+                    decryptKey = userSelection.chooseDecryptKey();
+                }
+
+
+                String fileData = fileHandler.read(filePath);
+                String processedData = cipherHandler.dataProcessor(
+                        mode,
+                        algorithm,
+                        fileData,
+                        decryptKey
+                );
+                fileHandler.write(processedData, fileData, mode);
             }
-            catch (SelectionException | FileException e ){
-                System.out.printf(e.getMessage());
+            catch (SelectionException | FileException | CipherException e ){
+                System.err.println("Error: " + e.getMessage());
             }
         } while (true);
     }

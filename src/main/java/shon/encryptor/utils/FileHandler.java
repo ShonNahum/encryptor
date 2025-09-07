@@ -18,7 +18,7 @@ public class FileHandler implements Read, Write {
         try {
             return readString(Path.of(filepath));
         } catch (IOException | OutOfMemoryError | SecurityException e) {
-            throw new FileException("Cannot read file " + e.getMessage());
+            throw new FileException("Cannot read file " + e);
         }
     }
 
@@ -29,7 +29,7 @@ public class FileHandler implements Read, Write {
             String[] fileParts = filepath.split("\\.");
             String newFilePath;
 
-            if ("ENCRYPT".equals(mode)) {
+            if (Constants.ENCRYPT.equals(mode)) {
                 newFilePath = fileParts[0] + "_encrypted" + "." + fileParts[1];
             } else {
                 newFilePath = fileParts[0] + "_decrypted" + "." + fileParts[1];
@@ -37,8 +37,8 @@ public class FileHandler implements Read, Write {
 
             Files.writeString(Path.of(newFilePath), data);
             System.out.println(newFilePath + " Created successfully");
-        } catch (Throwable e) {
-            throw new FileException("Cannot write to file " + e.getMessage());
+        } catch (IOException | SecurityException | IllegalArgumentException | UnsupportedOperationException e) {
+            throw new FileException("Cannot write to file: " + e);
+        }
         }
     }
-}

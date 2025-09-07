@@ -1,4 +1,4 @@
-package shon.encryptor.menus;
+package shon.encryptor.utils;
 
 public class Constants {
     public static final int INVALID = -1;
