@@ -29,13 +29,14 @@ public class CipherHandler {
             default -> throw new CipherException("Invalid mode " + mode);
 
         };
+        System.out.printf("%nfinished %s %s%n",mode , algorithm);
         long stopTimer = TimerHandler.stop();
         TimerHandler.getDurationMillis(startTimer,stopTimer);
         return result;
     }
 
     private Cipher getCipher(String algorithm) throws CipherException {
-        Cipher cipher = algorithms.get(algorithm.toUpperCase());
+        Cipher cipher = algorithms.get(algorithm);
         if (cipher == null) {
             throw new CipherException("Invalid algorithm: " + algorithm);
         }

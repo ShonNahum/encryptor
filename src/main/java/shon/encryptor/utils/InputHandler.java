@@ -6,10 +6,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class InputHandler {
-    private final Scanner input = new Scanner(System.in);
+    private static final InputHandler instance = new InputHandler();
+    private final Scanner scanner;
+
+    private InputHandler() {
+        this.scanner = new Scanner(System.in);
+    }
+
+    public static InputHandler getInstance() {
+        return instance;
+    }
 
     private String readOption(List<String> validOptions) throws SelectionException {
-        String value = input.nextLine().toUpperCase();
+        String value = scanner.nextLine().toUpperCase();
         if (!validOptions.contains(value)) {
             throw new SelectionException("Invalid Option" + ": " + value);
         }
@@ -25,6 +34,6 @@ public class InputHandler {
     }
 
     public String stringInput() {
-        return input.nextLine();
+        return scanner.nextLine();
     }
 }

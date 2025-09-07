@@ -15,7 +15,7 @@ import shon.encryptor.utils.FileHandler;
 
 public class Encryptor {
     private final FileHandler fileHandler = new FileHandler();
-    private final InputHandler inputHandler = new InputHandler();
+    private final InputHandler inputHandler = InputHandler.getInstance();
     private final Caesar caesar = new Caesar();
     private final XOR xor = new XOR();
     private final Multiplication multiplication = new Multiplication();
@@ -24,6 +24,7 @@ public class Encryptor {
 
     public void run() {
         do {
+            System.out.println("Starting Encryptor...");
             try  {
                 String decryptKey = null;
 
@@ -59,7 +60,7 @@ public class Encryptor {
                         fileData,
                         decryptKey
                 );
-                fileHandler.write(processedData, fileData, mode);
+                fileHandler.write(processedData, filePath, mode);
             }
             catch (SelectionException | FileException | CipherException e ){
                 System.err.println("Error: " + e.getMessage());
