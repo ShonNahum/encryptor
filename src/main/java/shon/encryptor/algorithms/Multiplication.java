@@ -1,37 +1,33 @@
 package shon.encryptor.algorithms;
 
+import shon.encryptor.abstracts.AbstractCipher;
 import shon.encryptor.exceptions.CipherException;
-import shon.encryptor.interfaces.Cipher;
-import shon.encryptor.utils.ConvertHandler;
-
+import shon.encryptor.utils.Constants;
 
 import static shon.encryptor.utils.MathHandler.generateOddKey;
 
-public class Multiplication implements Cipher {
+public class Multiplication extends AbstractCipher {
+
+    @Override
+    protected Object generateKey() {
+        return generateOddKey(Constants.BYTE_RANGE);
+    }
 
     @Override
     public String encrypt(String data) {
-        int BYTE_RANGE = 256;
-        int key = generateOddKey(BYTE_RANGE);
-        System.out.printf("%nthe key is %d%n", key);
-        return MultiplicationLogic(data, key);
+        return super.encrypt(data);
     }
 
     @Override
-    public String decrypt(String data,String decryptKey) throws CipherException {
-        try {
-            int key = ConvertHandler.StringToInt(decryptKey);
-            return MultiplicationLogic(data,key);
-        } catch (NumberFormatException e) {
-            throw new CipherException("Invalid decrypt key: " + e.getMessage());
-        }
+    public String decrypt(String data, String decryptKey) throws CipherException {
+        return super.decrypt(data, decryptKey);
     }
 
-
-    private String MultiplicationLogic(String data, int key) {
+    @Override
+    protected String logic(String data, Object key, String mode) {
         StringBuilder result = new StringBuilder();
         for (char ch : data.toCharArray()) {
-            result.append((char)(ch * key));
+            result.append((char)(ch * (int) key));
         }
         return result.toString();
     }

@@ -1,0 +1,50 @@
+package shon.encryptor.abstracts;
+
+import shon.encryptor.exceptions.CipherException;
+import shon.encryptor.interfaces.Cipher;
+import shon.encryptor.utils.Constants;
+import shon.encryptor.utils.ConvertHandler;
+import shon.encryptor.utils.TimerHandler;
+
+public abstract class AbstractCipher implements Cipher {
+
+    protected abstract String logic(String data, Object key, String mode);
+    protected abstract Object generateKey();
+
+    @Override
+    public String encrypt(String data) {
+        System.out.println("Starting Encryption....");
+        long startTimer = TimerHandler.start();
+
+        Object key = generateKey();
+        System.out.printf("The encryption key is %s%n", key);
+        String result = logic(data, key, Constants.ENCRYPT);
+        long stopTimer = TimerHandler.stop();
+        double duration = TimerHandler.getDurationMillis(startTimer, stopTimer);
+        System.out.printf("Encryption Finished and took %.2f ms%n", duration);
+
+        return result;
+    }
+
+    @Override
+    public String decrypt(String data, String decryptKey) throws CipherException {
+        System.out.println("Starting Decryption....");
+        long startTimer = TimerHandler.start();
+
+        Object key = parseKey(decryptKey);
+        String result = logic(data, key, Constants.DECRYPT);
+
+        long stopTimer = TimerHandler.stop();
+        double duration = TimerHandler.getDurationMillis(startTimer, stopTimer);
+        System.out.printf("Decryption Finished and took %.2f ms%n", duration);
+        return result;
+    }
+
+    protected Object parseKey(String key) throws CipherException { // default is int; override for string-based algorithms
+        try {
+            return ConvertHandler.StringToInt(key);
+        } catch (NumberFormatException e) {
+            throw new CipherException(e.getMessage());
+        }
+    }
+}

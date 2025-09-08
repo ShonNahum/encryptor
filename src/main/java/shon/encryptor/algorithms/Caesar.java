@@ -1,43 +1,39 @@
 package shon.encryptor.algorithms;
+
+import shon.encryptor.abstracts.AbstractCipher;
 import shon.encryptor.exceptions.CipherException;
-import shon.encryptor.interfaces.Cipher;
 import shon.encryptor.utils.Constants;
-import shon.encryptor.utils.ConvertHandler;
 
 import static shon.encryptor.utils.MathHandler.generateRandomNumber;
 
-
-public final class Caesar implements Cipher{
+public class Caesar extends AbstractCipher {
 
     @Override
-    public String encrypt(String data) { // ADD ABSTRACT FOR IT
+    protected Object generateKey() {
         final int SHIFT_RANGE = 20;
-        int shiftKey = generateRandomNumber(SHIFT_RANGE);
-        System.out.printf("%nthe shift key is %d%n" ,shiftKey);
-        return caesarLogic(data, shiftKey, Constants.ENCRYPT);
+        return generateRandomNumber(SHIFT_RANGE);
+    }
+
+    @Override
+    public String encrypt(String data) {
+        return super.encrypt(data);
     }
 
     @Override
     public String decrypt(String data, String decryptKey) throws CipherException {
-        try {
-            int key = ConvertHandler.StringToInt(decryptKey);
-            return caesarLogic(data, key, Constants.DECRYPT);
-        } catch (NumberFormatException e) {
-            throw new CipherException("Invalid decrypt key: " + e.getMessage());
-        }
+        return super.decrypt(data, decryptKey);
     }
 
-    private String caesarLogic(String data, int key, String mode) {
-        StringBuilder result = new StringBuilder();
-        if (Constants.DECRYPT.equals(mode)) {
-            key = -key;
-        }
-        for (char ch : data.toCharArray()) {
-            char shifted = (char) (ch + key);
-            result.append(shifted);
-        }
-        return result.toString();
+    @Override
+    protected String logic(String data, Object key, String mode) {
+            int shiftkey = (int) key;
+            StringBuilder result = new StringBuilder();
+            if (Constants.DECRYPT.equals(mode)) {
+                shiftkey = -shiftkey;
+            }
+            for (char ch : data.toCharArray()) {
+                result.append((char) (ch + shiftkey));
+            }
+            return result.toString();
     }
 }
-
-

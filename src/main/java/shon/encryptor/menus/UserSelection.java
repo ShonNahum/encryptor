@@ -17,7 +17,7 @@ public class UserSelection  {
     }
 
     private void printMenu(List<String> options, String menuKind) {
-        System.out.printf("%n=== %s Menu ===%n",menuKind);
+        System.out.printf("=== %s Menu ===%n",menuKind);
         for (String option : options ) {
             System.out.println(option);
         }
@@ -31,7 +31,7 @@ public class UserSelection  {
                 Constants.EXIT
         );
         printMenu(ModeMenu, "Modes");
-        return inputHandler.modeInput();
+        return inputHandler.mode();
     }
 
 
@@ -43,17 +43,17 @@ public class UserSelection  {
                 Constants.MULTIPLICATION
         );
         printMenu(algorithmMenu,"Algorithm");
-        return inputHandler.algorithmInput();
+        return inputHandler.algorithm();
 
     }
 
     public String chooseDecryptKey() {
         System.out.println("=== Please Enter Decrypt Key ===");
-        return inputHandler.stringInput();
+        return inputHandler.string();
     }
 
     public String chooseFilePath() throws SelectionException {
         System.out.println("=== Please Enter File Path ===");
-        return inputHandler.stringInput();
+        return inputHandler.string();
     }
 }

@@ -24,7 +24,11 @@ public class Encryptor {
 
     public void run() {
         do {
-            System.out.println("Starting Encryptor...");
+            System.out.println("""
+            ==========================
+             Starting Encryptor..."
+            ==========================
+            """);
             try  {
                 String decryptKey = null;
 

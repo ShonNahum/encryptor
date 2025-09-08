@@ -15,24 +15,19 @@ public class CipherHandler {
     public CipherHandler(Caesar caesar, XOR xor, Multiplication multiplication) {
         this.algorithms = Map.of(
                 Constants.CAESAR, caesar,
-                Constants.XOR, xor,
+                Constants.XOR, (Cipher) xor,
                 Constants.MULTIPLICATION, multiplication
         );
     }
 
     public String dataProcessor(String mode ,String algorithm, String fileData,String decryptKey) throws CipherException {
         Cipher cipher = getCipher(algorithm);
-        long startTimer = TimerHandler.start();
-        String result = switch (mode) {
+        return switch (mode) {
             case Constants.ENCRYPT -> cipher.encrypt(fileData);
             case Constants.DECRYPT -> cipher.decrypt(fileData, decryptKey);
             default -> throw new CipherException("Invalid mode " + mode);
 
         };
-        System.out.printf("%nfinished %s %s%n",mode , algorithm);
-        long stopTimer = TimerHandler.stop();
-        TimerHandler.getDurationMillis(startTimer,stopTimer);
-        return result;
     }
 
     private Cipher getCipher(String algorithm) throws CipherException {

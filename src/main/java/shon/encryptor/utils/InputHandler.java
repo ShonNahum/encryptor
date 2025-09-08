@@ -25,15 +25,15 @@ public class InputHandler {
         return value;
     }
 
-    public String modeInput() throws SelectionException {
+    public String mode() throws SelectionException {
         return readOption(List.of(Constants.ENCRYPT, Constants.DECRYPT, Constants.EXIT));
     }
 
-    public String algorithmInput() throws SelectionException {
+    public String algorithm() throws SelectionException {
         return readOption(List.of(Constants.CAESAR, Constants.XOR, Constants.REVERSE, Constants.MULTIPLICATION));
     }
 
-    public String stringInput() {
+    public String string() {
         return scanner.nextLine();
     }
 }

@@ -8,4 +8,5 @@ public class Constants {
     public static final String XOR = "XOR";
     public static final String REVERSE = "REVERSE";
     public static final String CAESAR = "CAESAR";
+    public static final int BYTE_RANGE = 256;
 }
