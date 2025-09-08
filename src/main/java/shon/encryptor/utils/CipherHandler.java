@@ -15,7 +15,7 @@ public class CipherHandler {
     public CipherHandler(Caesar caesar, XOR xor, Multiplication multiplication) {
         this.algorithms = Map.of(
                 Constants.CAESAR, caesar,
-                Constants.XOR, (Cipher) xor,
+                Constants.XOR, xor,
                 Constants.MULTIPLICATION, multiplication
         );
     }
