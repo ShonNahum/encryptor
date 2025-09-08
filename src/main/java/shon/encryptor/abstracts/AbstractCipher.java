@@ -40,7 +40,7 @@ public abstract class AbstractCipher implements Cipher {
         return result;
     }
 
-    protected Object parseKey(String key) throws CipherException { // default is int; override for string-based algorithms
+    protected Object parseKey(String key) throws CipherException { // default is int; override for other type of key
         try {
             return ConvertHandler.StringToInt(key);
         } catch (NumberFormatException e) {
