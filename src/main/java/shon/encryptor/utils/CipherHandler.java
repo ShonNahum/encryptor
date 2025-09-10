@@ -12,11 +12,11 @@ public class CipherHandler {
 
 
 
-    public CipherHandler(Caesar caesar, XOR xor, Multiplication multiplication) {
-        this.algorithms = Map.of(
-                Constants.CAESAR, caesar,
-                Constants.XOR, xor,
-                Constants.MULTIPLICATION, multiplication
+    public CipherHandler() {
+        this.algorithms = Map.of( // no need all 3, one is enough
+                Constants.CAESAR, new Caesar(),
+                Constants.XOR, new XOR(),
+                Constants.MULTIPLICATION, new Multiplication()
         );
     }
 
@@ -30,7 +30,7 @@ public class CipherHandler {
         };
     }
 
-    private Cipher getCipher(String algorithm) throws CipherException {
+    private Cipher getCipher(String algorithm) throws CipherException { // complex, maybe enum better
         Cipher cipher = algorithms.get(algorithm);
         if (cipher == null) {
             throw new CipherException("Invalid algorithm: " + algorithm);

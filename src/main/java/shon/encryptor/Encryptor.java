@@ -16,14 +16,11 @@ import shon.encryptor.utils.FileHandler;
 public class Encryptor {
     private final FileHandler fileHandler = new FileHandler();
     private final InputHandler inputHandler = InputHandler.getInstance();
-    private final Caesar caesar = new Caesar();
-    private final XOR xor = new XOR();
-    private final Multiplication multiplication = new Multiplication();
     private final UserSelection userSelection = new UserSelection(inputHandler);
-    private final CipherHandler cipherHandler = new CipherHandler(caesar, xor, multiplication);
+    private final CipherHandler cipherHandler = new CipherHandler(); // only he know the algorithms
 
     public void run() {
-        do {
+        do { // no need do-while for it..
             System.out.println("""
             ==========================
              Starting Encryptor..."
@@ -40,8 +37,8 @@ public class Encryptor {
 
                 String algorithm = userSelection.chooseAlgorithm();
 
-                //Handle Reverse
-                if (Constants.REVERSE.equals(algorithm)){
+                //Handle Reverse (its not good... only cipherHandler need to know it)
+                if (Constants.REVERSE.equals(algorithm)){ //what happen after type twice reverse recurtion
                      algorithm = userSelection.chooseAlgorithm();
                     if (Constants.ENCRYPT.equals(mode)) {
                         mode = Constants.DECRYPT;
@@ -50,14 +47,14 @@ public class Encryptor {
                     }
                 }
 
-                String filePath = userSelection.chooseFilePath();
+                String filePath = userSelection.chooseFilePath(); // check if path is valid here
 
                 if (Constants.DECRYPT.equals(mode)) {
                     decryptKey = userSelection.chooseDecryptKey();
                 }
 
 
-                String fileData = fileHandler.read(filePath);
+                String fileData = fileHandler.read(filePath);//convert to String is stupid, if its binary file?.. change to array of bytes
                 String processedData = cipherHandler.dataProcessor(
                         mode,
                         algorithm,
