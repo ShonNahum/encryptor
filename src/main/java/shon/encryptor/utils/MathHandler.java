@@ -19,7 +19,7 @@ public class MathHandler {
     }
 
 
-    public static double divideByByte(byte numerator,double denominator ){
+    public static int divideByByte(byte numerator,int denominator ){
         if (denominator == 0) {
             throw new ArithmeticException("Cannot divide by zero");
         }

@@ -3,39 +3,48 @@ import shon.encryptor.algorithms.Caesar;
 import shon.encryptor.algorithms.Multiplication;
 import shon.encryptor.algorithms.XOR;
 import shon.encryptor.exceptions.CipherException;
+import shon.encryptor.exceptions.SelectionException;
 import shon.encryptor.interfaces.Cipher;
+import shon.encryptor.menus.UserSelection;
 
-import java.util.Map;
 
 public class CipherHandler {
-    private final Map<String, Cipher> algorithms;
+    private final UserSelection userSelection;
 
 
 
-    public CipherHandler() {
-        this.algorithms = Map.of( // no need all 3, one is enough
-                Constants.CAESAR, new Caesar(),
-                Constants.XOR, new XOR(),
-                Constants.MULTIPLICATION, new Multiplication()
-        );
+    public CipherHandler(UserSelection userSelection) {
+        this.userSelection = userSelection;
     }
 
-    public byte[] dataProcessor(String mode ,String algorithm, byte[] fileData,String decryptKey) throws CipherException {
+    public String[] reverseAlgoValidator(String algorithm,String mode) throws SelectionException {
+        while(Constants.REVERSE.equals(algorithm)) {
+            algorithm = userSelection.chooseAlgorithm();
+            if (Constants.ENCRYPT.equals(mode)) {
+                mode = Constants.DECRYPT;
+            } else {
+                mode = Constants.ENCRYPT;
+            }
+        }
+        return new String[] { algorithm, mode };
+    }
+
+    public byte[] dataProcessor(String algorithm , String mode, byte[] fileData,String decryptKey) throws CipherException {
         Cipher cipher = getCipher(algorithm);
         return switch (mode) {
             case Constants.ENCRYPT -> cipher.encrypt(fileData);
             case Constants.DECRYPT -> cipher.decrypt(fileData, decryptKey);
-            default -> throw new CipherException("Invalid mode " + mode);
-
+            default -> throw new CipherException("Invalid mode: " + mode);
         };
     }
 
-    private Cipher getCipher(String algorithm) throws CipherException { // complex, maybe enum better
-        Cipher cipher = algorithms.get(algorithm);
-        if (cipher == null) {
-            throw new CipherException("Invalid algorithm: " + algorithm);
-        }
-        return cipher;
+    private Cipher getCipher(String algorithm) throws CipherException {
+        return switch (algorithm) {
+            case Constants.CAESAR -> new Caesar();
+            case Constants.XOR -> new XOR();
+            case Constants.MULTIPLICATION -> new Multiplication();
+            default -> throw new CipherException("Invalid algorithm: " + algorithm);
+        };
     }
 
 }

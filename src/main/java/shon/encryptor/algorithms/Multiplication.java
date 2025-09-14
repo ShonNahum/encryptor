@@ -4,13 +4,16 @@ import shon.encryptor.abstracts.AbstractCipher;
 import shon.encryptor.exceptions.CipherException;
 import shon.encryptor.utils.Constants;
 
+import static shon.encryptor.utils.MathHandler.divideByByte;
 import static shon.encryptor.utils.MathHandler.generateOddKey;
 
 public class Multiplication extends AbstractCipher {
+    public static Object encryptionKey;
 
     @Override
     protected Object generateKey() {
-        return generateOddKey(Constants.BYTE_RANGE);
+        encryptionKey = generateOddKey(Constants.BYTE_RANGE);
+        return encryptionKey;
     }
 
     @Override
@@ -19,16 +22,14 @@ public class Multiplication extends AbstractCipher {
     }
 
     @Override
-    public byte[] decrypt(byte[] data, String decryptKey) throws CipherException {
-        // find decryption key...
+    public byte[] decrypt(byte[] data, String decryptKey) throws CipherException { // #TODO
         return super.decrypt(data, decryptKey);
     }
-
     @Override
-    protected byte[] logic(byte[] data, Object key, String mode) {
+    protected byte[] logic(byte[] data, Object encryptionKey, String mode) {
         byte[] result = new byte[data.length];
         for(int i=0; i < data.length; i++) {
-            result[i] = (byte) (data[i] * (int) key);
+            result[i] = (byte) (data[i] * (int) encryptionKey );
         }
         return result;
     }
