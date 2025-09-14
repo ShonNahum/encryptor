@@ -5,6 +5,6 @@ import shon.encryptor.exceptions.CipherException;
 
 public interface Cipher
 {
-    String encrypt(String data);
-    String decrypt(String data, String decryptKey) throws CipherException;
+    byte[] encrypt(byte[] data);
+    byte[] decrypt(byte[] data, String decryptKey) throws CipherException;
 }

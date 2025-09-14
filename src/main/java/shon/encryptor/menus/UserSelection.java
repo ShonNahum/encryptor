@@ -1,9 +1,11 @@
 package shon.encryptor.menus;
 
+import shon.encryptor.exceptions.FileException;
 import shon.encryptor.exceptions.SelectionException;
 import shon.encryptor.utils.Constants;
 import shon.encryptor.utils.InputHandler;
 
+import java.io.File;
 import java.util.List;
 
 
@@ -52,8 +54,13 @@ public class UserSelection  {
         return inputHandler.string();
     }
 
-    public String chooseFilePath() throws SelectionException {
+    public String chooseFilePath() throws FileException {
         System.out.println("=== Please Enter File Path ===");
-        return inputHandler.string();
+        File file = new File(inputHandler.string());
+        if (file.exists()) {
+            return file.toString();
+        } else {
+            throw new FileException("File does not exists..");
+        }
     }
 }

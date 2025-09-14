@@ -20,12 +20,13 @@ public class Encryptor {
     private final CipherHandler cipherHandler = new CipherHandler(); // only he know the algorithms
 
     public void run() {
-        do { // no need do-while for it..
+        while(true) {
             System.out.println("""
             ==========================
              Starting Encryptor..."
             ==========================
             """);
+
             try  {
                 String decryptKey = null;
 
@@ -47,15 +48,15 @@ public class Encryptor {
                     }
                 }
 
-                String filePath = userSelection.chooseFilePath(); // check if path is valid here
+                String filePath = userSelection.chooseFilePath(); // {FIXED} check if path is valid here
 
                 if (Constants.DECRYPT.equals(mode)) {
                     decryptKey = userSelection.chooseDecryptKey();
                 }
 
 
-                String fileData = fileHandler.read(filePath);//convert to String is stupid, if its binary file?.. change to array of bytes
-                String processedData = cipherHandler.dataProcessor(
+                byte[] fileData = fileHandler.read(filePath);// {FIXED} convert to String is stupid, if its binary file?.. change to array of bytes
+                byte[] processedData = cipherHandler.dataProcessor(
                         mode,
                         algorithm,
                         fileData,
@@ -66,6 +67,6 @@ public class Encryptor {
             catch (SelectionException | FileException | CipherException e ){
                 System.err.println("Error: " + e.getMessage());
             }
-        } while (true);
+        }
     }
 }

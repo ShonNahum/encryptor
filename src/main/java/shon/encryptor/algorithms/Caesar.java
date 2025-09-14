@@ -15,25 +15,26 @@ public class Caesar extends AbstractCipher {
     }
 
     @Override
-    public String encrypt(String data) {
+    public byte[] encrypt(byte[] data) {
         return super.encrypt(data);
     }
 
     @Override
-    public String decrypt(String data, String decryptKey) throws CipherException {
+    public byte[] decrypt(byte[] data, String decryptKey) throws CipherException {
         return super.decrypt(data, decryptKey);
     }
 
     @Override
-    protected String logic(String data, Object key, String mode) {
-            int shiftkey = (int) key;
-            StringBuilder result = new StringBuilder();
-            if (Constants.DECRYPT.equals(mode)) {
-                shiftkey = -shiftkey;
-            }
-            for (char ch : data.toCharArray()) {
-                result.append((char) (ch + shiftkey));
-            }
-            return result.toString();
+    protected byte[] logic(byte[] data, Object key, String mode) {
+        int shiftkey = (int) key;
+        if (Constants.DECRYPT.equals(mode)) {
+            shiftkey = -shiftkey;
+        }
+
+        byte[] result = new byte[data.length];
+        for(int i=0; i < data.length; i++) {
+            result[i] = (byte) (data[i] + shiftkey);
+        }
+        return result;
     }
 }

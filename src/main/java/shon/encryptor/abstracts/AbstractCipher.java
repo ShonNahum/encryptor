@@ -8,17 +8,17 @@ import shon.encryptor.utils.TimerHandler;
 
 public abstract class AbstractCipher implements Cipher {
 
-    protected abstract String logic(String data, Object key, String mode);
+    protected abstract byte[] logic(byte[] data, Object key, String mode);
     protected abstract Object generateKey();
 
     @Override
-    public String encrypt(String data) {
+    public byte[] encrypt(byte[] data) {
         System.out.println("Starting Encryption....");
         long startTimer = TimerHandler.start();
 
         Object key = generateKey();
         System.out.printf("The encryption key is %s%n", key);
-        String result = logic(data, key, Constants.ENCRYPT);
+        byte[] result = logic(data, key, Constants.ENCRYPT);
         long stopTimer = TimerHandler.stop();
         double duration = TimerHandler.getDurationMillis(startTimer, stopTimer);
         System.out.printf("Encryption Finished and took %.2f ms%n", duration);
@@ -27,12 +27,12 @@ public abstract class AbstractCipher implements Cipher {
     }
 
     @Override
-    public String decrypt(String data, String decryptKey) throws CipherException {
+    public byte[] decrypt(byte[] data, String decryptKey) throws CipherException {
         System.out.println("Starting Decryption....");
         long startTimer = TimerHandler.start();
 
         Object key = parseKey(decryptKey);
-        String result = logic(data, key, Constants.DECRYPT);
+        byte[] result = logic(data, key, Constants.DECRYPT);
 
         long stopTimer = TimerHandler.stop();
         double duration = TimerHandler.getDurationMillis(startTimer, stopTimer);

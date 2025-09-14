@@ -1,6 +1,8 @@
 package shon.encryptor.interfaces;
 
+import shon.encryptor.exceptions.FileException;
+
 public interface Read {
-    String read(String path) throws Throwable;
+    byte[] read(String path) throws FileException;
 
 }

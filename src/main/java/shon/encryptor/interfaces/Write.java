@@ -1,7 +1,9 @@
 package shon.encryptor.interfaces;
 
 
+import shon.encryptor.exceptions.FileException;
+
 public interface Write {
-    void write(String data, String path, String modes) throws Throwable;
+    void write(byte[] data, String path, String modes) throws FileException;
 
 }

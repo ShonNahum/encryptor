@@ -14,21 +14,22 @@ public class Multiplication extends AbstractCipher {
     }
 
     @Override
-    public String encrypt(String data) {
+    public byte[] encrypt(byte[] data) {
         return super.encrypt(data);
     }
 
     @Override
-    public String decrypt(String data, String decryptKey) throws CipherException {
+    public byte[] decrypt(byte[] data, String decryptKey) throws CipherException {
+        // find decryption key...
         return super.decrypt(data, decryptKey);
     }
 
     @Override
-    protected String logic(String data, Object key, String mode) {
-        StringBuilder result = new StringBuilder();
-        for (char ch : data.toCharArray()) {
-            result.append((char)(ch * (int) key));
+    protected byte[] logic(byte[] data, Object key, String mode) {
+        byte[] result = new byte[data.length];
+        for(int i=0; i < data.length; i++) {
+            result[i] = (byte) (data[i] * (int) key);
         }
-        return result.toString();
+        return result;
     }
 }

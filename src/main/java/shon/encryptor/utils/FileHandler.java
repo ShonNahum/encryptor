@@ -8,15 +8,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static java.nio.file.Files.readString;
+import static java.nio.file.Files.readAllBytes;
 
 public class FileHandler implements Read, Write {
 
 
     @Override
-    public String read(String filepath) throws FileException {
+    public byte[] read(String filepath) throws FileException {
         try {
-            return readString(Path.of(filepath));
+            return readAllBytes(Path.of(filepath));
         } catch (IOException | OutOfMemoryError | SecurityException e) {
             throw new FileException("Cannot read file " + e);
         }
@@ -24,18 +24,21 @@ public class FileHandler implements Read, Write {
 
 
     @Override
-    public void write(String data, String filepath, String mode) throws FileException {
+    public void write(byte[] data, String filepath, String mode) throws FileException {
         try {
-            String[] fileParts = filepath.split("\\.");
-            String newFilePath;
+            int lastDotInFilePath = filepath.lastIndexOf('.');
+            String basename = filepath.substring(0, lastDotInFilePath);
+            String extension = filepath.substring(lastDotInFilePath + 1);
 
+            String newFilePath;
             if (Constants.ENCRYPT.equals(mode)) {
-                newFilePath = fileParts[0] + "_encrypted" + "." + fileParts[1];
+                newFilePath = basename + "_encrypted." + extension;
             } else {
-                newFilePath = fileParts[0] + "_decrypted" + "." + fileParts[1];
+                newFilePath = basename + "_decrypted." + extension;
             }
 
-            Files.writeString(Path.of(newFilePath), data);
+
+            Files.write(Path.of(newFilePath), data);
             System.out.println(newFilePath + " Created successfully");
         } catch (IOException | SecurityException | IllegalArgumentException | UnsupportedOperationException e) {
             throw new FileException("Cannot write to file: " + e);

@@ -20,7 +20,7 @@ public class CipherHandler {
         );
     }
 
-    public String dataProcessor(String mode ,String algorithm, String fileData,String decryptKey) throws CipherException {
+    public byte[] dataProcessor(String mode ,String algorithm, byte[] fileData,String decryptKey) throws CipherException {
         Cipher cipher = getCipher(algorithm);
         return switch (mode) {
             case Constants.ENCRYPT -> cipher.encrypt(fileData);
