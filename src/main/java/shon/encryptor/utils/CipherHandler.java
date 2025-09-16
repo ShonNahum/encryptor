@@ -7,6 +7,9 @@ import shon.encryptor.exceptions.SelectionException;
 import shon.encryptor.interfaces.Cipher;
 import shon.encryptor.menus.UserSelection;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class CipherHandler {
     private final UserSelection userSelection;
@@ -17,16 +20,20 @@ public class CipherHandler {
         this.userSelection = userSelection;
     }
 
-    public String[] reverseAlgoValidator(String algorithm,String mode) throws SelectionException {
-        while(Constants.REVERSE.equals(algorithm)) {
-            algorithm = userSelection.chooseAlgorithm();
-            if (Constants.ENCRYPT.equals(mode)) {
-                mode = Constants.DECRYPT;
+    public Map<String,String> reverseAlgoValidator(String algorithm,String mode) throws SelectionException {
+        Map<String,String> selection = new HashMap<>();
+        selection.put("ALGORITHM",algorithm);
+        selection.put("MODE",mode);
+
+        while(Constants.REVERSE.equals(selection.get("ALGORITHM"))) {
+            selection.put("ALGORITHM",userSelection.chooseAlgorithm());
+            if (Constants.ENCRYPT.equals(selection.get("MODE"))) {
+                selection.put("MODE",Constants.DECRYPT);
             } else {
-                mode = Constants.ENCRYPT;
+                selection.put("MODE",Constants.ENCRYPT);
             }
         }
-        return new String[] { algorithm, mode };
+        return selection;
     }
 
     public byte[] dataProcessor(String algorithm , String mode, byte[] fileData,String decryptKey) throws CipherException {

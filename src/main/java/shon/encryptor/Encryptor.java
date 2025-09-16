@@ -9,6 +9,8 @@ import shon.encryptor.utils.InputHandler;
 
 import shon.encryptor.utils.FileHandler;
 
+import java.util.Map;
+
 
 public class Encryptor {
     private final FileHandler fileHandler = new FileHandler();
@@ -18,6 +20,7 @@ public class Encryptor {
 
     public void run() {
         while(true) {
+            Map<String,String> selection;
             System.out.println("""
             ==========================
              Starting Encryptor..."
@@ -34,9 +37,9 @@ public class Encryptor {
                     System.out.println("Exiting Encryptor :(");
                     break;
                 }
-                String[] algoAndMode = cipherHandler.reverseAlgoValidator(algorithm,mode); // {FIXED} CipherHandle handle Reverse
-                algorithm = algoAndMode[0];
-                mode = algoAndMode[1];
+                selection = cipherHandler.reverseAlgoValidator(algorithm,mode); // {FIXED} CipherHandle handle Reverse
+                algorithm = selection.get("ALGORITHM");
+                mode = selection.get("MODE");
 
                 String filePath = userSelection.chooseFilePath(); // {FIXED} check if path is valid here
 
