@@ -1,14 +1,17 @@
-package shon.encryptor.utils;
-import shon.encryptor.algorithms.Caesar;
-import shon.encryptor.algorithms.Multiplication;
-import shon.encryptor.algorithms.XOR;
+package shon.encryptor.cipher;
+import shon.encryptor.cipher.algorithms.Caesar;
+import shon.encryptor.cipher.algorithms.Multiplication;
+import shon.encryptor.cipher.algorithms.XOR;
+import shon.encryptor.constants.Constants;
+import shon.encryptor.conveters.ConvertHandler;
 import shon.encryptor.exceptions.CipherException;
 import shon.encryptor.exceptions.SelectionException;
-import shon.encryptor.interfaces.Cipher;
-import shon.encryptor.menus.UserSelection;
+import shon.encryptor.IO.UserSelection;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static shon.encryptor.math.MathHandler.divideByByte;
 
 
 public class CipherHandler {
@@ -18,6 +21,10 @@ public class CipherHandler {
 
     public CipherHandler(UserSelection userSelection) {
         this.userSelection = userSelection;
+    }
+
+    public int multiplicationDecryptKey(String encryptkey) {
+        return divideByByte(ConvertHandler.StringToInt(encryptkey));
     }
 
     public Map<String,String> reverseAlgoValidator(String algorithm,String mode) throws SelectionException {

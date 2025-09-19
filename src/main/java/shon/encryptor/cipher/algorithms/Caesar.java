@@ -1,10 +1,10 @@
-package shon.encryptor.algorithms;
+package shon.encryptor.cipher.algorithms;
 
-import shon.encryptor.abstracts.AbstractCipher;
+import shon.encryptor.cipher.AbstractCipher;
 import shon.encryptor.exceptions.CipherException;
-import shon.encryptor.utils.Constants;
+import shon.encryptor.constants.Constants;
 
-import static shon.encryptor.utils.MathHandler.generateRandomNumber;
+import static shon.encryptor.math.MathHandler.generateRandomNumber;
 
 public class Caesar extends AbstractCipher {
 

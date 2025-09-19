@@ -1,6 +1,7 @@
-package shon.encryptor.utils;
+package shon.encryptor.IO;
 
 import shon.encryptor.exceptions.SelectionException;
+import shon.encryptor.constants.Constants;
 
 import java.util.List;
 import java.util.Scanner;

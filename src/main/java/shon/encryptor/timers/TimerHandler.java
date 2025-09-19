@@ -1,4 +1,4 @@
-package shon.encryptor.utils;
+package shon.encryptor.timers;
 
 public class TimerHandler {
     public static long start() {

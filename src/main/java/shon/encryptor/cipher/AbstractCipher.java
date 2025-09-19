@@ -1,10 +1,9 @@
-package shon.encryptor.abstracts;
+package shon.encryptor.cipher;
 
 import shon.encryptor.exceptions.CipherException;
-import shon.encryptor.interfaces.Cipher;
-import shon.encryptor.utils.Constants;
-import shon.encryptor.utils.ConvertHandler;
-import shon.encryptor.utils.TimerHandler;
+import shon.encryptor.constants.Constants;
+import shon.encryptor.conveters.ConvertHandler;
+import shon.encryptor.timers.TimerHandler;
 
 public abstract class AbstractCipher implements Cipher {
 
@@ -40,7 +39,8 @@ public abstract class AbstractCipher implements Cipher {
         return result;
     }
 
-    protected Object parseKey(String key) throws CipherException { // default is int; override for other type of key
+    @Override
+    public Object parseKey(String key) throws CipherException { // default is int; override for other type of key
         try {
             return ConvertHandler.StringToInt(key);
         } catch (NumberFormatException e) {

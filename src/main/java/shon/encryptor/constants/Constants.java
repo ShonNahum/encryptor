@@ -1,4 +1,4 @@
-package shon.encryptor.utils;
+package shon.encryptor.constants;
 
 public class Constants {
     public static final String ENCRYPT = "ENCRYPT";

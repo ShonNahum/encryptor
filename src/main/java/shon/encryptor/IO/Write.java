@@ -1,4 +1,4 @@
-package shon.encryptor.interfaces;
+package shon.encryptor.IO;
 
 
 import shon.encryptor.exceptions.FileException;

@@ -1,8 +1,7 @@
-package shon.encryptor.utils;
+package shon.encryptor.IO;
 
 import shon.encryptor.exceptions.FileException;
-import shon.encryptor.interfaces.Read;
-import shon.encryptor.interfaces.Write;
+import shon.encryptor.constants.Constants;
 
 import java.io.IOException;
 import java.nio.file.Files;

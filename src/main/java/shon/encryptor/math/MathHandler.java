@@ -1,5 +1,6 @@
-package shon.encryptor.utils;
+package shon.encryptor.math;
 
+import java.sql.PreparedStatement;
 import java.util.Random;
 
 public class MathHandler {
@@ -19,10 +20,11 @@ public class MathHandler {
     }
 
 
-    public static int divideByByte(byte numerator,int denominator ){
+    public static int divideByByte(int denominator ){
         if (denominator == 0) {
             throw new ArithmeticException("Cannot divide by zero");
         }
-        return numerator / denominator;
+        int result =  (byte) 1 / denominator;
+        return  result;
     }
 }

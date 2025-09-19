@@ -1,9 +1,8 @@
-package shon.encryptor.menus;
+package shon.encryptor.IO;
 
 import shon.encryptor.exceptions.FileException;
 import shon.encryptor.exceptions.SelectionException;
-import shon.encryptor.utils.Constants;
-import shon.encryptor.utils.InputHandler;
+import shon.encryptor.constants.Constants;
 
 import java.io.File;
 import java.util.List;
@@ -51,6 +50,10 @@ public class UserSelection  {
 
     public String chooseDecryptKey() {
         System.out.println("=== Please Enter Decrypt Key ===");
+        return inputHandler.string();
+    }
+    public String chooseEncryptKey() {
+        System.out.println("=== Please Enter Encrypt Key ===");
         return inputHandler.string();
     }
 

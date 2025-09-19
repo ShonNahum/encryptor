@@ -2,12 +2,12 @@ package shon.encryptor;
 import shon.encryptor.exceptions.CipherException;
 import shon.encryptor.exceptions.FileException;
 import shon.encryptor.exceptions.SelectionException;
-import shon.encryptor.utils.CipherHandler;
-import shon.encryptor.utils.Constants;
-import shon.encryptor.menus.UserSelection;
-import shon.encryptor.utils.InputHandler;
+import shon.encryptor.cipher.CipherHandler;
+import shon.encryptor.constants.Constants;
+import shon.encryptor.IO.UserSelection;
+import shon.encryptor.IO.InputHandler;
 
-import shon.encryptor.utils.FileHandler;
+import shon.encryptor.IO.FileHandler;
 
 import java.util.Map;
 
@@ -43,9 +43,16 @@ public class Encryptor {
 
                 String filePath = userSelection.chooseFilePath(); // {FIXED} check if path is valid here
 
-                if (Constants.DECRYPT.equals(mode) && !Constants.MULTIPLICATION.equals(algorithm)) {
-                    decryptKey = userSelection.chooseDecryptKey();
+                if (Constants.DECRYPT.equals(mode)) {
+                    if(Constants.MULTIPLICATION.equals(algorithm)) {
+                        decryptKey = String.valueOf(cipherHandler.multiplicationDecryptKey(userSelection.chooseEncryptKey())); // NOT WORKING
+                        System.out.println(decryptKey);
+                    }
+                    else {
+                        decryptKey = userSelection.chooseDecryptKey();
+                    }
                 }
+
 
 
                 byte[] fileData = fileHandler.read(filePath);// {FIXED} convert to String is stupid, if its binary file?.. change to array of bytes
